@@ -127,7 +127,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cannon.cpp" />
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Chest.cpp" />
     <ClCompile Include="DeadMansDraw.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Hook.cpp" />
+    <ClCompile Include="Key.cpp" />
+    <ClCompile Include="Kraken.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Mermaid.cpp" />
+    <ClCompile Include="Oracle.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Sword.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Cannon.h" />
+    <ClInclude Include="Card.h" />
+    <ClInclude Include="Chest.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Hook.h" />
+    <ClInclude Include="Key.h" />
+    <ClInclude Include="Kraken.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Mermaid.h" />
+    <ClInclude Include="Oracle.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Sword.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
