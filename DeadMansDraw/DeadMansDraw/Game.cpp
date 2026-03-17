@@ -2,6 +2,13 @@
 
 Game::Game()
 {
+    round = 1;
+    turnNum = 1;
+    currentPlayer = 0;
+
+    initialiseDeck();
+    shuffle();
+    createPlayer();
 }
 
 Game::~Game()
@@ -10,6 +17,7 @@ Game::~Game()
 
 void Game::startGame()
 {
+    std::cout << GAME_TITLE << std::endl;
 }
 
 void Game::endGame()
@@ -29,6 +37,8 @@ void Game::shuffle()
 
 void Game::createPlayer()
 {
+    players[0] = new Player();
+    players[1] = new Player();
 }
 
 void Game::turn()
@@ -37,4 +47,6 @@ void Game::turn()
 
 void Game::gameTracker()
 {
+
+
 }

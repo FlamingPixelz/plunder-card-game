@@ -92,5 +92,8 @@
     <ClInclude Include="Kraken.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="game_title.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

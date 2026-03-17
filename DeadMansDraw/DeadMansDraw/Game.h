@@ -3,15 +3,12 @@
 #include <random>
 #include "Player.h"
 #include "Card.h"
+#include "game_title.h"
 
 #pragma once
 class Game
 {
 public:
-
-    CardCollection deck, discard;
-    std::vector<Player*> players;
-
 
     Game();
     ~Game();
@@ -24,6 +21,10 @@ public:
     void gameTracker();
 
 private:
-    int turnNum, round;
+
+    int turnNum, round, currentPlayer;
+    CardCollection deck, discard;
+    Player* players[2];
+
 };
 

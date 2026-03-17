@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="DeadMansDraw/DeadMansDraw.vcxproj" />
+  <Project Path="DeadMansDraw/DeadMansDraw.vcxproj" Id="edf9032e-0280-42c1-b25f-8112d445eafa" />
 </Solution>
