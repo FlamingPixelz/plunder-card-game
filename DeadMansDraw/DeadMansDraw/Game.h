@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Card.h"
 #include "game_title.h"
+#include "Mermaid.h"
 
 #pragma once
 class Game

@@ -43,13 +43,15 @@ void Game::endGame()
 
 void Game::initialiseDeck()
 {
+    int value = 7;
+    for (int i = 0; i < 54; i++) {
+        deck.push_back(new Mermaid(value));
+    }
 }
 
 void Game::shuffle()
 {
-    //CardCollection shuffle{ cards.begin(), cards.end() };
-    //std::shuffle(shuffle.begin(), shuffle.end(), std::mt19937{ std::random_device{}() });
-    //std::copy(shuffle.begin(), shuffle.end(), cards.begin());
+    std::shuffle(deck.begin(), deck.end(), std::mt19937{ std::random_device{}() });
 }
 
 void Game::createPlayer()
@@ -85,8 +87,11 @@ void Game::turn()
 }
 
 void Game::draw()
-{
-    printf("%s draws a card\n", players[currentPlayer]->name.c_str()); // Add logic to draw a card
+
+{ 
+    Card* card = deck.back();
+    deck.pop_back();
+    printf("%s draws a %s\n", players[currentPlayer]->name.c_str(), card->str().c_str()); // Add logic to draw a card
 }
 
 

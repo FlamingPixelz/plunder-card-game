@@ -1,1 +1,24 @@
 #include "Card.h"
+
+Card::Card(int value, CardType type) : value(value), cardType(type)
+{
+}
+
+Card::~Card()
+{
+}
+
+CardType Card::type() const
+{
+    return cardType;
+}
+
+void Card::willAddToBank(Game&, Player&)
+{
+}
+
+int Card::getValue() const
+{
+    return value;
+}
+
