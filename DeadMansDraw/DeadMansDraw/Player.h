@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Card.h"
+#include <array>
+#include <time.h>
 
 #pragma once
 
@@ -10,9 +12,8 @@ class Player
 {
 public:
 
-    std::vector<std::string> names;
+    std::string name;
     CardCollection playArea, bank;
-    int score;
 
     Player();
     ~Player();
@@ -20,7 +21,7 @@ public:
     bool isBust();
     void moveToBank();
     void displayBank();
-    int getScore();
+    void getScore();
     bool PlayCard(Card*, Game&);
 };
 
