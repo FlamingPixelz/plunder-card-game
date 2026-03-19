@@ -2,8 +2,6 @@
 
 Player::Player()
 {
-    const std::string nameArray[10] = {"Emma", "Billy", "Sasha", "Bob", "Jack", "Olivia", "Ed", "Diane", "Phil", "Jade"};
-    name = nameArray[rand() % 10];
 }
 
 Player::~Player()
@@ -12,7 +10,6 @@ Player::~Player()
 
 void Player::displayPlayArea()
 {
-    printf("%s's Play Area: \n", name.c_str());
 }
 
 bool Player::isBust()
@@ -26,13 +23,11 @@ void Player::moveToBank()
 
 void Player::displayBank()
 {
-    printf("%s's Bank: \n", name.c_str());
-    getScore();
 }
 
-void Player::getScore()
+int Player::getScore()
 {
-    printf("| Score: 0\n");
+    return 0;
 }
 
 bool Player::PlayCard(Card*, Game&)

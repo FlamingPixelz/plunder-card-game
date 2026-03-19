@@ -18,7 +18,6 @@ public:
     void shuffle();
     void createPlayer();
     void turn();
-    void draw();
     void gameTracker();
 
 private:
