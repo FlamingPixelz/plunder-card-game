@@ -42,16 +42,39 @@ void Player::displayBank()
 {
     printf("%s's Bank: \n", name.c_str());
 
+    std::map<CardType, std::vector<Card*>> suit;
+
+    // Adding cards to suit map
     for (Card* card : bank) {
-        printf("        %s\n", card->str().c_str());
+        suit[card->type()].push_back(card);
     }
+
+    for (auto& group : suit) {
+
+        auto& cards = group.second;
+
+        //Sort cards in descending order
+        std::sort(cards.begin(), cards.end(), [](const Card* a, const Card* b) {
+            return a->getValue() > b->getValue();
+            });
+
+        printf("       ");
+
+       for (Card* card : cards) {
+           printf(" %s", card->str().c_str());
+
+       }
+
+       printf("\n");
+}
 
     getScore();
 }
 
-void Player::getScore()
+int Player::getScore()
 {
     printf("| Score: 0\n");
+    return 0;
 }
 
 bool Player::PlayCard(Card* card, Game&)

@@ -3,6 +3,7 @@
 #include <array>
 #include <vector>
 #include <map>
+#include <algorithm>
 #include <time.h>
 
 #pragma once
@@ -26,7 +27,7 @@ public:
     bool isBust();
     void moveToBank();
     void displayBank();
-    void getScore();
+    int getScore();
     bool PlayCard(Card*, Game&);
 };
 
