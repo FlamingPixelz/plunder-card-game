@@ -4,7 +4,15 @@
 #include "Player.h"
 #include "Card.h"
 #include "game_title.h"
+#include "Cannon.h"
+#include "Chest.h"
+#include "Hook.h"
+#include "Key.h"
+#include "Kraken.h"
+#include "Map.h"
 #include "Mermaid.h"
+#include "Oracle.h"
+#include "Sword.h"
 
 #pragma once
 class Game

@@ -43,10 +43,21 @@ void Game::endGame()
 
 void Game::initialiseDeck()
 {
-    int value = 7;
-    for (int i = 0; i < 54; i++) {
-        deck.push_back(new Mermaid(value));
+    int cardValue[6] = { 2, 3, 4, 5, 6, 7 };
+
+    for (int i : cardValue) {
+
+        deck.push_back(new Cannon(i));
+        deck.push_back(new Chest(i));
+        deck.push_back(new Hook(i));
+        deck.push_back(new Key(i));
+        deck.push_back(new Kraken(i));
+        deck.push_back(new Map(i));
+        deck.push_back(new Mermaid(i + 2));
+        deck.push_back(new Oracle(i));
+        deck.push_back(new Sword(i));
     }
+
 }
 
 void Game::shuffle()
@@ -91,7 +102,7 @@ void Game::draw()
 { 
     Card* card = deck.back();
     deck.pop_back();
-    printf("%s draws a %s\n", players[currentPlayer]->name.c_str(), card->str().c_str()); // Add logic to draw a card
+    printf("%s draws a %s\n", players[currentPlayer]->name.c_str(), card->str().c_str());
 }
 
 
