@@ -27,7 +27,7 @@ public:
     void shuffle();
     void createPlayer();
     void turn();
-    void draw();
+    Card* draw();
     void gameTracker();
 
 private:

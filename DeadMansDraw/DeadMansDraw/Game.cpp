@@ -37,7 +37,7 @@ void Game::endGame()
     players[0]->displayBank();
     players[1]->displayBank();
 
-    printf("Player Wins!");
+    printf("Player Wins!"); // Change to state winning player's name
 
 }
 
@@ -75,19 +75,21 @@ void Game::turn()
 {
     std::string response;
 
-    printf("%s's Turn.\n", players[currentPlayer]->name.c_str());
+    printf("%s's Turn.\n", players[currentPlayer]->name.c_str()); // Need getters for name
     players[currentPlayer]->displayBank();
-    draw();
-    // players[currentPlayer]->PlayCard(Card*, Game&); // Moves card to play area and checks if bust
+    Card* card = draw();
+    players[currentPlayer]->PlayCard(card, *this); // Moves card to play area and checks if bust
     players[currentPlayer]->displayPlayArea();
 
     while (true) {
 
-        printf("Draw Again? (y/n):");
+        printf("\nDraw Again? (y/n): ");
         std::getline(std::cin, response);
 
         // FIX THIS TO BE BETTER LATER
         if (response.front() == 'n') {
+            players[currentPlayer]->moveToBank();
+            players[currentPlayer]->displayBank();
             currentPlayer++;
             break;
         }
@@ -97,12 +99,13 @@ void Game::turn()
     }
 }
 
-void Game::draw()
+Card* Game::draw()
 
 { 
     Card* card = deck.back();
     deck.pop_back();
     printf("%s draws a %s\n", players[currentPlayer]->name.c_str(), card->str().c_str());
+    return card;
 }
 
 

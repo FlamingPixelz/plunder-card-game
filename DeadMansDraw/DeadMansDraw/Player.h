@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Card.h"
 #include <array>
+#include <vector>
+#include <map>
 #include <time.h>
 
 #pragma once
@@ -10,10 +12,13 @@ class Game;
 class Player
 
 {
+private:
+
+    CardCollection playArea, bank;
+
 public:
 
     std::string name;
-    CardCollection playArea, bank;
 
     Player();
     ~Player();
