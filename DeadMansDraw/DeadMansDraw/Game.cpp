@@ -91,6 +91,8 @@ void Game::turn()
         return;
      }
 
+    card->play(*this, *players[currentPlayer]);
+
     players[currentPlayer]->displayPlayArea();
 
     while (true) {
