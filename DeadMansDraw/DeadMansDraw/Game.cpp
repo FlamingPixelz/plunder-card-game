@@ -15,6 +15,10 @@ Game::~Game()
 {
     delete players[0];
     delete players[1];
+
+    for (Card* card : deck) {
+        delete card;
+    }
 }
 
 void Game::startGame()
@@ -78,7 +82,15 @@ void Game::turn()
     printf("%s's Turn.\n", players[currentPlayer]->name.c_str()); // Need getters for name
     players[currentPlayer]->displayBank();
     Card* card = draw();
-    players[currentPlayer]->PlayCard(card, *this); // Moves card to play area and checks if bust
+    bool isBust = players[currentPlayer]->PlayCard(card, *this); // Moves card to play area and checks if bust
+
+    // Need to implement discard system
+    if (isBust) {
+        printf("BUST! %s loses all cards in play area.\n", players[currentPlayer]->name.c_str()); 
+        currentPlayer++;
+        return;
+     }
+
     players[currentPlayer]->displayPlayArea();
 
     while (true) {

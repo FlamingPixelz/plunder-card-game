@@ -25,6 +25,20 @@ void Player::displayPlayArea()
 
 bool Player::isBust()
 {
+    std::set<CardType> checkDuplicate;
+
+    // Creates set and checks for duplicate cards
+    for (Card* card : playArea) {
+
+        CardType suit = card->type();
+
+        if (checkDuplicate.find(suit) != checkDuplicate.end()) {
+            return true;
+        }
+
+        checkDuplicate.insert(suit);
+    }
+
     return false;
 }
 
@@ -79,6 +93,13 @@ int Player::getScore()
 
 bool Player::PlayCard(Card* card, Game&)
 {
+
     playArea.push_back(card);
+
+    if (isBust()) {
+        playArea.clear(); // Need to implement discard system here instead of just clearing play area
+        return true;
+    }
+
     return false; // Also implement bust here
 }

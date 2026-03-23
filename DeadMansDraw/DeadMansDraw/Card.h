@@ -18,10 +18,9 @@ class Card
 protected:
 
     int value;
-    CardType cardType;
 
 public:
-
+    CardType cardType;
 
     Card(int value, CardType type);
     virtual ~Card();
