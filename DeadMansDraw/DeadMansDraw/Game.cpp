@@ -31,6 +31,11 @@ CardCollection& Game::getDiscard()
     return discard;
 }
 
+CardCollection& Game::getDeck()
+{
+    return deck;
+}
+
 void Game::startGame()
 {
     std::cout << GAME_TITLE << std::endl;

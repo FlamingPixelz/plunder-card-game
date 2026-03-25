@@ -23,6 +23,7 @@ public:
     ~Game();
 
     CardCollection& getDiscard();
+    CardCollection& getDeck();
 
     void startGame();
     void endGame();
