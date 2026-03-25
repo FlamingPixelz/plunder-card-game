@@ -21,6 +21,9 @@ public:
 
     Game();
     ~Game();
+
+    CardCollection& getDiscard();
+
     void startGame();
     void endGame();
     void initialiseDeck();
@@ -29,12 +32,16 @@ public:
     void turn();
     Card* draw();
     void gameTracker();
+    void moveToDiscard(CardCollection&);
+
+protected:
+
+    CardCollection deck, discard;
+    Player* players[2];
 
 private:
 
     int turnNum, round, currentPlayer;
-    CardCollection deck, discard;
-    Player* players[2];
 
 };
 

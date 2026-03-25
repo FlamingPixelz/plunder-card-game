@@ -14,9 +14,6 @@ class Game;
 class Player
 
 {
-private:
-
-    CardCollection playArea, bank;
 
 public:
 
@@ -24,11 +21,22 @@ public:
 
     Player();
     ~Player();
+
+    CardCollection& getPlayArea();
+    const CardCollection& getBank();
+
     void displayPlayArea();
     bool isBust();
     void moveToBank();
     void displayBank();
     int getScore();
     bool PlayCard(Card*, Game&);
+
+protected:
+
+    CardCollection playArea, bank;
+
+private:
+
 };
 

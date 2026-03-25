@@ -17,8 +17,18 @@ Game::~Game()
     delete players[1];
 
     for (Card* card : deck) {
+        //printf("Deleting card %s from deck\n", card->str().c_str()); // Test
         delete card;
     }
+    for (Card* card : discard) {
+        //printf("Deleting card %s from discard\n", card->str().c_str()); // Test
+        delete card;
+    }
+}
+
+CardCollection& Game::getDiscard()
+{
+    return discard;
 }
 
 void Game::startGame()
@@ -75,6 +85,7 @@ void Game::createPlayer()
     players[1] = new Player();
 }
 
+
 void Game::turn()
 {
     std::string response;
@@ -84,9 +95,12 @@ void Game::turn()
     Card* card = draw();
     bool isBust = players[currentPlayer]->PlayCard(card, *this); // Moves card to play area and checks if bust
 
-    // Need to implement discard system
+    // If bust, move all cards in the play area into the discard pile
     if (isBust) {
+
         printf("BUST! %s loses all cards in play area.\n", players[currentPlayer]->name.c_str()); 
+        CardCollection& playArea = players[currentPlayer]->getPlayArea();
+        moveToDiscard(playArea);
         currentPlayer++;
         return;
      }
@@ -133,4 +147,14 @@ void Game::gameTracker()
     printf("--- Round %d, Turn %d ---\n", round, turnNum);
     turnNum++;
 
+}
+
+void Game::moveToDiscard(CardCollection& playArea)
+{
+    for (Card* card : playArea) {
+        discard.push_back(card);
+        //printf("Discarding card %s\n", card->str().c_str()); // Test that discard is working
+    }
+
+    playArea.clear();
 }

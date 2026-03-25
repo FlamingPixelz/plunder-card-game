@@ -8,6 +8,14 @@ Player::Player()
 
 Player::~Player()
 {
+    for (Card* card : bank) {
+        //printf("Deleting card %s from bank\n", card->str().c_str()); // test
+        delete card;
+    }
+    for (Card* card : playArea) {
+        //printf("Deleting card %s from play area\n", card->str().c_str()); // test
+        delete card;
+    }
 }
 
 void Player::displayPlayArea()
@@ -40,6 +48,16 @@ bool Player::isBust()
     }
 
     return false;
+}
+
+CardCollection& Player::getPlayArea()
+{
+    return playArea;
+}
+
+const CardCollection& Player::getBank()
+{
+    return bank;
 }
 
 void Player::moveToBank()
@@ -97,7 +115,6 @@ bool Player::PlayCard(Card* card, Game&)
     playArea.push_back(card);
 
     if (isBust()) {
-        playArea.clear(); // Need to implement discard system here instead of just clearing play area
         return true;
     }
 
