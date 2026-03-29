@@ -139,7 +139,6 @@ void Game::turn()
             for (int i = 0; i < krakenDraws; ++i) {
 
                 Card* card = draw();
-                krakenDraws--;
 
                 if (drawToPlayArea(*players[currentPlayer], card)) {
                     currentPlayer++;
@@ -155,8 +154,8 @@ void Game::turn()
                 
             }
 
+            krakenDraws = 0;
         }
-
         players[currentPlayer]->displayPlayArea();
 
         printf("\nDraw Again? (y/n): ");
