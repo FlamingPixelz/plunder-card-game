@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+
 #include "Player.h"
 #include "Card.h"
 #include "game_title.h"
@@ -24,6 +25,7 @@ public:
 
     CardCollection& getDiscard();
     CardCollection& getDeck();
+    Player& getOpponent(Player& currentPlayer);
 
     void startGame();
     void endGame();

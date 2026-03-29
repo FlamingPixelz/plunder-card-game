@@ -31,6 +31,8 @@ public:
     void displayBank();
     int getScore();
     bool PlayCard(Card*, Game&);
+    std::vector<Card*> getHighestCardsFromBank();
+    Card* removeFromBank(Card* card);
 
 protected:
 

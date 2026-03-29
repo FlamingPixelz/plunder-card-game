@@ -1,11 +1,70 @@
 #include "Sword.h"
+#include "Game.h"
+#include "Player.h"
+
+
 
 Sword::Sword(int value) : Card(value, sword) {
 
 }
 
-void Sword::play(Game&, Player&)
+void Sword::play(Game& game, Player& player)
 {
+    Player& opponent = game.getOpponent(player);
+
+    std::vector<Card*> opponentHighestCards = opponent.getHighestCardsFromBank();
+
+    if (opponentHighestCards.empty()) {
+        printf("        No cards in other player's Bank. Play continues.\n");
+        return;
+    }
+
+    printf("        Steal the top card of any suit from the other player's Bank into you Play Area:\n");
+    for (int i = 0; i < opponentHighestCards.size(); i++) {
+        printf("       (%d) %s\n", i + 1, opponentHighestCards[i]->str().c_str());
+    }
+
+    std::string input;
+    int choice = { 0 };
+
+    // Input validation
+    while (true) {
+
+        printf("        Which card do you pick? ");
+        std::getline(std::cin, input);
+
+        try {
+            choice = std::stoi(input);
+        }
+        catch (...) {
+        }
+
+        if (choice < 1 || choice > opponentHighestCards.size()) {
+        }
+        else {
+            break;
+        }
+
+    }
+
+    Card* selectedCard = opponentHighestCards[choice - 1];
+
+    //Remove Card from Opponent's Bank
+    Card* taken = opponent.removeFromBank(selectedCard);
+
+    printf("%s draws a %s\n", player.name.c_str(), taken->str().c_str());
+
+    bool isBust = player.PlayCard(taken, game);
+
+    if (isBust) {
+        game.moveToDiscard(player.getPlayArea());
+        printf("BUST! %s loses all cards in play area.\n", player.name.c_str());
+        return;
+    }
+
+
+    taken->play(game, player);
+
 }
 
 std::string Sword::str()

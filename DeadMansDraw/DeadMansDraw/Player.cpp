@@ -118,5 +118,43 @@ bool Player::PlayCard(Card* card, Game&)
         return true;
     }
 
-    return false; // Also implement bust here
+    return false;
+}
+
+// Helper Functions for Card Abilities
+
+
+std::vector<Card*> Player::getHighestCardsFromBank()
+{
+    std::map<CardType, Card*> highestCard;
+
+    for (Card* card : bank) {
+        CardType suit = card->type();
+
+        if (highestCard.find(suit) == highestCard.end() || card->getValue() > highestCard[suit]->getValue()) {
+            highestCard[suit] = card;
+        }
+    }
+
+    std::vector<Card*> results;
+
+    for (auto& pair : highestCard) {
+        results.push_back(pair.second);
+    }
+
+    return results;
+}
+
+Card* Player::removeFromBank(Card* card)
+{
+
+    for (auto i = bank.begin(); i != bank.end(); ++i) {
+        if (*i == card) {
+            Card* removedCard = *i;
+            bank.erase(i);
+            return removedCard;
+        }
+    }
+
+    return nullptr;
 }

@@ -36,12 +36,20 @@ CardCollection& Game::getDeck()
     return deck;
 }
 
+Player& Game::getOpponent(Player& currentPlayer)
+{
+    if (&currentPlayer == players[0]) {
+        return *players[1];
+    }
+    return *players[0];
+}
+
 void Game::startGame()
 {
     std::cout << GAME_TITLE << std::endl;
     printf("Starting Dead Man's Draw++!\n");
 
-    for(int i = 0; i < 20; ++i) {
+    for(int i = 0; i < 30; ++i) {
 
         gameTracker();
         turn();
@@ -100,6 +108,8 @@ void Game::turn()
     Card* card = draw();
     bool isBust = players[currentPlayer]->PlayCard(card, *this); // Moves card to play area and checks if bust
 
+    card->play(*this, *players[currentPlayer]);
+
     // If bust, move all cards in the play area into the discard pile
     if (isBust) {
 
@@ -109,8 +119,6 @@ void Game::turn()
         currentPlayer++;
         return;
      }
-
-    card->play(*this, *players[currentPlayer]);
 
     players[currentPlayer]->displayPlayArea();
 
@@ -163,3 +171,7 @@ void Game::moveToDiscard(CardCollection& playArea)
 
     playArea.clear();
 }
+
+
+
+// Helper functions for card implementation
