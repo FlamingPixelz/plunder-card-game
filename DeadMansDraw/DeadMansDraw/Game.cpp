@@ -6,6 +6,7 @@ Game::Game()
     turnNum = { 1 };
     currentPlayer = { 0 };
     turnOver = { false };
+    krakenDraws = { 0 };
 
     initialiseDeck();
     shuffle();
@@ -43,6 +44,11 @@ Player& Game::getOpponent(Player& currentPlayer)
         return *players[1];
     }
     return *players[0];
+}
+
+void Game::setKrakenDraws(int draws)
+{
+    krakenDraws = draws;
 }
 
 void Game::startGame()
@@ -104,6 +110,7 @@ void Game::createPlayer()
 void Game::turn()
 {
     turnOver = false;
+    krakenDraws = 0;
     std::string response;
 
     printf("%s's Turn.\n", players[currentPlayer]->name.c_str()); // Need getters for name
@@ -124,9 +131,33 @@ void Game::turn()
         return;
     }
 
-    players[currentPlayer]->displayPlayArea();
-
     while (true) {
+
+        //Specific draw rules for the kraken ability
+        if (krakenDraws > 0) {
+
+            for (int i = 0; i < krakenDraws; ++i) {
+
+                Card* card = draw();
+                krakenDraws--;
+
+                if (drawToPlayArea(*players[currentPlayer], card)) {
+                    currentPlayer++;
+                    return;
+                }
+
+                card->play(*this, *players[currentPlayer]);
+
+                if (isTurnOver()) {
+                    currentPlayer++;
+                    return;
+                }
+                
+            }
+
+        }
+
+        players[currentPlayer]->displayPlayArea();
 
         printf("\nDraw Again? (y/n): ");
         std::getline(std::cin, response);

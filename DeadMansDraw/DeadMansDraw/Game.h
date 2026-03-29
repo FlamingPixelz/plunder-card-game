@@ -25,7 +25,8 @@ public:
 
     CardCollection& getDiscard();
     CardCollection& getDeck();
-    Player& getOpponent(Player& currentPlayer);
+    Player& getOpponent(Player&);
+    void setKrakenDraws(int);
 
     void startGame();
     void endGame();
@@ -47,7 +48,7 @@ protected:
 
 private:
 
-    int turnNum, round, currentPlayer;
+    int turnNum, round, currentPlayer, krakenDraws;
     bool turnOver;
 
 };
