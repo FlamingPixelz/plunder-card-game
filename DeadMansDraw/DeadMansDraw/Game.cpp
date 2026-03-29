@@ -56,8 +56,8 @@ void Game::startGame()
     std::cout << GAME_TITLE << std::endl;
     printf("Starting Dead Man's Draw++!\n");
 
-    // Keeps track of the turns
-    for(int i = 0; i < 30; ++i) {
+    // Keeps track of the turns - 20 turns per game
+    for(int i = 0; i < 20; ++i) {
 
         gameTracker();
         turn();
@@ -115,21 +115,7 @@ void Game::turn()
 
     printf("%s's Turn.\n", players[currentPlayer]->name.c_str()); // Need getters for name
     players[currentPlayer]->displayBank();
-    Card* card = draw();
-    
-    // Check if card can be added to play area without busting, if so add and end turn, otherwise play card as normal
-    if (drawToPlayArea(*players[currentPlayer], card)) {
-        currentPlayer++;
-        return;
-    }
-
-    card->play(*this, *players[currentPlayer]);
-
-    // Checks if card ability causes a bust
-    if (isTurnOver()) {
-        currentPlayer++;
-        return;
-    }
+    executeCardTurn();
 
     while (true) {
 
@@ -137,21 +123,7 @@ void Game::turn()
         if (krakenDraws > 0) {
 
             for (int i = 0; i < krakenDraws; ++i) {
-
-                Card* card = draw();
-
-                if (drawToPlayArea(*players[currentPlayer], card)) {
-                    currentPlayer++;
-                    return;
-                }
-
-                card->play(*this, *players[currentPlayer]);
-
-                if (isTurnOver()) {
-                    currentPlayer++;
-                    return;
-                }
-                
+                executeCardTurn();
             }
 
             krakenDraws = 0;
@@ -230,5 +202,24 @@ void Game::endTurn()
 bool Game::isTurnOver() const
 {
     return turnOver;
+}
+
+void Game::executeCardTurn()
+{
+    Card* card = draw();
+
+    // Check if card can be added to play area without busting, if so add and end turn, otherwise play card as normal
+    if (drawToPlayArea(*players[currentPlayer], card)) {
+        currentPlayer++;
+        return;
+    }
+
+    card->play(*this, *players[currentPlayer]);
+
+    // Checks if card ability causes a bust
+    if (isTurnOver()) {
+        currentPlayer++;
+        return;
+    }
 }
 

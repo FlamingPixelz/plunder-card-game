@@ -50,6 +50,7 @@ private:
 
     int turnNum, round, currentPlayer, krakenDraws;
     bool turnOver;
+    void executeCardTurn();
 
 };
 
