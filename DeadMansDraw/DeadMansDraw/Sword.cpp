@@ -52,13 +52,7 @@ void Sword::play(Game& game, Player& player)
     //Remove Card from Opponent's Bank
     Card* taken = opponent.removeFromBank(selectedCard);
 
-    printf("%s draws a %s\n", player.name.c_str(), taken->str().c_str());
-
-    bool isBust = player.PlayCard(taken, game);
-
-    if (isBust) {
-        game.moveToDiscard(player.getPlayArea());
-        printf("BUST! %s loses all cards in play area.\n", player.name.c_str());
+    if (game.drawToPlayArea(player, taken)) {
         return;
     }
 

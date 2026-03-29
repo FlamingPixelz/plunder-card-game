@@ -5,6 +5,7 @@ Game::Game()
     round = 1;
     turnNum = 1;
     currentPlayer = 0;
+    turnOver = false;
 
     initialiseDeck();
     shuffle();
@@ -101,24 +102,25 @@ void Game::createPlayer()
 
 void Game::turn()
 {
+    turnOver = false;
     std::string response;
 
     printf("%s's Turn.\n", players[currentPlayer]->name.c_str()); // Need getters for name
     players[currentPlayer]->displayBank();
     Card* card = draw();
-    bool isBust = players[currentPlayer]->PlayCard(card, *this); // Moves card to play area and checks if bust
+    
+    // Check if card can be added to play area without busting, if so add and end turn, otherwise play card as normal
+    if (drawToPlayArea(*players[currentPlayer], card)) {
+        currentPlayer++;
+        return;
+    }
 
     card->play(*this, *players[currentPlayer]);
 
-    // If bust, move all cards in the play area into the discard pile
-    if (isBust) {
-
-        printf("BUST! %s loses all cards in play area.\n", players[currentPlayer]->name.c_str()); 
-        CardCollection& playArea = players[currentPlayer]->getPlayArea();
-        moveToDiscard(playArea);
+    if (isTurnOver()) {
         currentPlayer++;
         return;
-     }
+    }
 
     players[currentPlayer]->displayPlayArea();
 
@@ -140,12 +142,28 @@ void Game::turn()
     }
 }
 
+bool Game::drawToPlayArea(Player& player, Card* card)
+{
+    printf("%s draws a %s\n", player.name.c_str(), card->str().c_str());
+    bool isBust = player.PlayCard(card, *this);
+
+    if (isBust) {
+
+        printf("BUST! %s loses all cards in play area.\n", players[currentPlayer]->name.c_str());
+        CardCollection& playArea = players[currentPlayer]->getPlayArea();
+        moveToDiscard(playArea);
+        endTurn();
+        return true;
+    }
+
+    return false;
+}
+
 Card* Game::draw()
 
 { 
     Card* card = deck.back();
     deck.pop_back();
-    printf("%s draws a %s\n", players[currentPlayer]->name.c_str(), card->str().c_str());
     return card;
 }
 
@@ -170,6 +188,16 @@ void Game::moveToDiscard(CardCollection& playArea)
     }
 
     playArea.clear();
+}
+
+void Game::endTurn()
+{
+    turnOver = true;
+}
+
+bool Game::isTurnOver() const
+{
+    return turnOver;
 }
 
 

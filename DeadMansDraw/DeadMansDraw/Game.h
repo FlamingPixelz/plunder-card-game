@@ -33,9 +33,12 @@ public:
     void shuffle();
     void createPlayer();
     void turn();
+    bool drawToPlayArea(Player&, Card*);
     Card* draw();
     void gameTracker();
     void moveToDiscard(CardCollection&);
+    void endTurn();
+    bool isTurnOver() const;
 
 protected:
 
@@ -45,6 +48,7 @@ protected:
 private:
 
     int turnNum, round, currentPlayer;
+    bool turnOver;
 
 };
 
