@@ -2,10 +2,10 @@
 
 Game::Game()
 {
-    round = 1;
-    turnNum = 1;
-    currentPlayer = 0;
-    turnOver = false;
+    round = { 1 };
+    turnNum = { 1 };
+    currentPlayer = { 0 };
+    turnOver = { false };
 
     initialiseDeck();
     shuffle();
@@ -50,6 +50,7 @@ void Game::startGame()
     std::cout << GAME_TITLE << std::endl;
     printf("Starting Dead Man's Draw++!\n");
 
+    // Keeps track of the turns
     for(int i = 0; i < 30; ++i) {
 
         gameTracker();
@@ -117,6 +118,7 @@ void Game::turn()
 
     card->play(*this, *players[currentPlayer]);
 
+    // Checks if card ability causes a bust
     if (isTurnOver()) {
         currentPlayer++;
         return;
@@ -200,6 +202,3 @@ bool Game::isTurnOver() const
     return turnOver;
 }
 
-
-
-// Helper functions for card implementation

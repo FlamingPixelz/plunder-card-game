@@ -2,8 +2,6 @@
 #include "Game.h"
 #include "Player.h"
 
-
-
 Sword::Sword(int value) : Card(value, sword) {
 
 }
@@ -55,7 +53,6 @@ void Sword::play(Game& game, Player& player)
     if (game.drawToPlayArea(player, taken)) {
         return;
     }
-
 
     taken->play(game, player);
 
