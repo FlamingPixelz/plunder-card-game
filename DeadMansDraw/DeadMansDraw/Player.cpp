@@ -100,7 +100,7 @@ void Player::displayBank()
        printf("\n");
 }
 
-    calculateScore();
+    printf("| Score: %d\n", calculateScore());
 }
 
 int Player::calculateScore()
@@ -120,8 +120,6 @@ int Player::calculateScore()
     for (auto& pair : highestCard) {
         score += pair.second;
     }
-
-    printf("| Score: %d\n", score);
 
     return score;
 }

@@ -6,6 +6,7 @@ Game::Game()
     turnNum = { 1 };
     currentPlayer = { 0 };
     turnOver = { false };
+    roundTracker = { 2 };
     krakenDraws = { 0 };
 
     initialiseDeck();
@@ -27,6 +28,10 @@ Game::~Game()
         delete card;
     }
 }
+
+
+
+// -----Getters and setters------
 
 CardCollection& Game::getDiscard()
 {
@@ -51,6 +56,9 @@ void Game::setKrakenDraws(int draws)
     krakenDraws = draws;
 }
 
+
+
+
 void Game::startGame()
 {
     std::cout << GAME_TITLE << std::endl;
@@ -72,8 +80,17 @@ void Game::endGame()
     players[0]->displayBank();
     players[1]->displayBank();
 
-    printf("Player Wins!"); // Change to state winning player's name
-
+    if (players[0]->calculateScore() > players[1]->calculateScore()) {
+        printf("%s Wins!\n", players[0]->name.c_str());
+        return;
+    }
+    if(players[1]->calculateScore() > players[0]->calculateScore()) {
+        printf("%s Wins!\n", players[1]->name.c_str());
+        return;
+    }
+    else {
+        printf("It's a tie!\n");
+    }
 }
 
 void Game::initialiseDeck()
@@ -126,8 +143,14 @@ void Game::turn()
         //Specific draw rules for the kraken ability
         if (krakenDraws > 0) {
 
-            for (int i = 0; i < krakenDraws; ++i) {
+            while (krakenDraws > 0) {
+
                 executeCardTurn();
+                krakenDraws--;
+
+                if (isTurnOver()) {
+                    return;
+                }
             }
 
             krakenDraws = 0;
@@ -138,11 +161,11 @@ void Game::turn()
         printf("\nDraw Again? (y/n): ");
         std::getline(std::cin, response);
 
-        // FIX THIS TO BE BETTER LATER
         if (response.front() == 'n') {
+
             players[currentPlayer]->moveToBank();
             players[currentPlayer]->displayBank();
-            currentPlayer = (currentPlayer + 1) % 2;
+            endTurn();
             break;
         }
         if (response.front() == 'y') {
@@ -179,10 +202,6 @@ Card* Game::draw()
 
 void Game::gameTracker()
 {
-    if (currentPlayer == 0 && turnNum > 1) {
-        round++;
-    }
-
     printf("--- Round %d, Turn %d ---\n", round, turnNum);
     turnNum++;
 
@@ -201,6 +220,16 @@ void Game::moveToDiscard(CardCollection& playArea)
 void Game::endTurn()
 {
     turnOver = true;
+    roundTracker--;
+
+    // After both players have had a turn, move to the next round
+    if (roundTracker <= 0) {
+
+        round++;
+        roundTracker = 2;
+    }
+
+    currentPlayer = (currentPlayer + 1) % 2;
 }
 
 bool Game::isTurnOver() const
@@ -214,7 +243,6 @@ void Game::executeCardTurn()
 
     // Check if card can be added to play area without busting, if so add and end turn, otherwise play card as normal
     if (drawToPlayArea(*players[currentPlayer], card)) {
-        currentPlayer = (currentPlayer + 1) % 2;
         return;
     }
 
@@ -222,7 +250,6 @@ void Game::executeCardTurn()
 
     // Checks if card ability causes a bust
     if (isTurnOver()) {
-        currentPlayer = (currentPlayer + 1) % 2;
         return;
     }
 }

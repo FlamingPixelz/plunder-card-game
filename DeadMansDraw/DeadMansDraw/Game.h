@@ -48,7 +48,7 @@ protected:
 
 private:
 
-    int turnNum, round, currentPlayer, krakenDraws;
+    int turnNum, round, currentPlayer, krakenDraws, roundTracker;
     bool turnOver;
     void executeCardTurn();
 
