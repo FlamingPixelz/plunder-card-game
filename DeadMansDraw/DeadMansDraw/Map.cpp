@@ -40,7 +40,7 @@ void Map::play(Game& game, Player& player)
         catch (...) {
         }
 
-        if (choice < 1 || choice > discard.size()) {
+        if (choice < 1 || choice > count) {
         }
         else {
             break;
