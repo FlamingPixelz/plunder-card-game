@@ -119,6 +119,10 @@ void Game::turn()
 
     while (true) {
 
+        if (isTurnOver()) {
+            return;
+        }
+
         //Specific draw rules for the kraken ability
         if (krakenDraws > 0) {
 
@@ -128,6 +132,7 @@ void Game::turn()
 
             krakenDraws = 0;
         }
+
         players[currentPlayer]->displayPlayArea();
 
         printf("\nDraw Again? (y/n): ");

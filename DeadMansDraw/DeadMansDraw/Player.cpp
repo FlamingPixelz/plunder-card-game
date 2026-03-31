@@ -100,13 +100,30 @@ void Player::displayBank()
        printf("\n");
 }
 
-    getScore();
+    calculateScore();
 }
 
-int Player::getScore()
+int Player::calculateScore()
 {
-    printf("| Score: 0\n");
-    return 0;
+    int score = { 0 };
+    std::map<CardType, int> highestCard;    
+
+    for (Card* card : bank) {
+    CardType suit = card->type();
+
+      if (highestCard.find(suit) == highestCard.end() || card->getValue() > highestCard[suit]) {
+
+           highestCard[suit] = card->getValue();
+      }
+    }
+
+    for (auto& pair : highestCard) {
+        score += pair.second;
+    }
+
+    printf("| Score: %d\n", score);
+
+    return score;
 }
 
 bool Player::PlayCard(Card* card, Game&)
