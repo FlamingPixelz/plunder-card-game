@@ -29,7 +29,7 @@ public:
     bool isBust();
     void moveToBank();
     void displayBank();
-    int getScore();
+    int calculateScore();
     bool PlayCard(Card*, Game&);
     std::vector<Card*> getHighestCardsFromBank();
     Card* removeFromBank(Card* card);

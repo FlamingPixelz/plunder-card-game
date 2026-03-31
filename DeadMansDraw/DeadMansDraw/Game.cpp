@@ -142,7 +142,7 @@ void Game::turn()
         if (response.front() == 'n') {
             players[currentPlayer]->moveToBank();
             players[currentPlayer]->displayBank();
-            currentPlayer++;
+            currentPlayer = (currentPlayer + 1) % 2;
             break;
         }
         if (response.front() == 'y') {
@@ -179,8 +179,7 @@ Card* Game::draw()
 
 void Game::gameTracker()
 {
-    if (currentPlayer == 2) {
-        currentPlayer = 0;
+    if (currentPlayer == 0 && turnNum > 1) {
         round++;
     }
 
@@ -215,7 +214,7 @@ void Game::executeCardTurn()
 
     // Check if card can be added to play area without busting, if so add and end turn, otherwise play card as normal
     if (drawToPlayArea(*players[currentPlayer], card)) {
-        currentPlayer++;
+        currentPlayer = (currentPlayer + 1) % 2;
         return;
     }
 
@@ -223,7 +222,7 @@ void Game::executeCardTurn()
 
     // Checks if card ability causes a bust
     if (isTurnOver()) {
-        currentPlayer++;
+        currentPlayer = (currentPlayer + 1) % 2;
         return;
     }
 }
