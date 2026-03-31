@@ -49,7 +49,7 @@ void Map::play(Game& game, Player& player)
     }
 
     //Delete chosen card from discard and add to play area
-    int index = discard.size() - choice;
+    auto index = discard.size() - choice;
 
     Card* selectedCard = { discard[index] };
     discard.erase(discard.begin() + index);

@@ -17,13 +17,12 @@ class Player
 
 public:
 
-    std::string name;
-
     Player();
     ~Player();
 
     CardCollection& getPlayArea();
     const CardCollection& getBank();
+    const std::string& getName();
 
     void displayPlayArea();
     bool isBust();
@@ -40,5 +39,6 @@ protected:
 
 private:
 
+    std::string name;
 };
 

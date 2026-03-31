@@ -43,7 +43,7 @@ CardCollection& Game::getDeck()
     return deck;
 }
 
-Player& Game::getOpponent(Player& currentPlayer)
+Player& Game::getOpponent(Player& currentPlayer) const
 {
     if (&currentPlayer == players[0]) {
         return *players[1];
@@ -81,11 +81,11 @@ void Game::endGame()
     players[1]->displayBank();
 
     if (players[0]->calculateScore() > players[1]->calculateScore()) {
-        printf("%s Wins!\n", players[0]->name.c_str());
+        printf("%s Wins!\n", players[0]->getName().c_str());
         return;
     }
     if(players[1]->calculateScore() > players[0]->calculateScore()) {
-        printf("%s Wins!\n", players[1]->name.c_str());
+        printf("%s Wins!\n", players[1]->getName().c_str());
         return;
     }
     else {
@@ -130,7 +130,7 @@ void Game::turn()
     krakenDraws = 0;
     std::string response;
 
-    printf("%s's Turn.\n", players[currentPlayer]->name.c_str()); // Need getters for name
+    printf("%s's Turn.\n", players[currentPlayer]->getName().c_str()); // Need getters for name
     players[currentPlayer]->displayBank();
     executeCardTurn();
 
@@ -176,12 +176,12 @@ void Game::turn()
 
 bool Game::drawToPlayArea(Player& player, Card* card)
 {
-    printf("%s draws a %s\n", player.name.c_str(), card->str().c_str());
+    printf("%s draws a %s\n", player.getName().c_str(), card->str().c_str());
     bool isBust = player.PlayCard(card, *this);
 
     if (isBust) {
 
-        printf("BUST! %s loses all cards in play area.\n", players[currentPlayer]->name.c_str());
+        printf("BUST! %s loses all cards in play area.\n", players[currentPlayer]->getName().c_str());
         CardCollection& playArea = players[currentPlayer]->getPlayArea();
         moveToDiscard(playArea);
         endTurn();

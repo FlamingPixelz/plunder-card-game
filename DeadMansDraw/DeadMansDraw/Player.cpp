@@ -60,6 +60,11 @@ const CardCollection& Player::getBank()
     return bank;
 }
 
+const std::string& Player::getName()
+{
+    return name;
+}
+
 void Player::moveToBank()
 {
     for (Card* card : playArea)

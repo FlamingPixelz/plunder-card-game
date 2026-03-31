@@ -7,7 +7,7 @@ Oracle::Oracle(int value) : Card(value, oracle) {
 
 void Oracle::play(Game& game, Player&)
 {
-    CardCollection& deck = game.getDeck();
+    const CardCollection& deck = game.getDeck();
 
     if (deck.empty()) {
         printf("        Deck is empty. The Oracle sees nothing.\n");

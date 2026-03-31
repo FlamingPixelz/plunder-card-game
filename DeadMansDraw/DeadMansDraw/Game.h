@@ -25,21 +25,12 @@ public:
 
     CardCollection& getDiscard();
     CardCollection& getDeck();
-    Player& getOpponent(Player&);
+    Player& getOpponent(Player&) const;
     void setKrakenDraws(int);
 
     void startGame();
-    void endGame();
-    void initialiseDeck();
-    void shuffle();
-    void createPlayer();
-    void turn();
     bool drawToPlayArea(Player&, Card*);
-    Card* draw();
-    void gameTracker();
     void moveToDiscard(CardCollection&);
-    void endTurn();
-    bool isTurnOver() const;
 
 protected:
 
@@ -50,7 +41,16 @@ private:
 
     int turnNum, round, currentPlayer, krakenDraws, roundTracker;
     bool turnOver;
-    void executeCardTurn();
 
+    void executeCardTurn();
+    void endTurn();
+    bool isTurnOver() const;
+    Card* draw();
+    void gameTracker();
+    void endGame();
+    void initialiseDeck();
+    void shuffle();
+    void createPlayer();
+    void turn();
 };
 
