@@ -55,7 +55,7 @@ CardCollection& Player::getPlayArea()
     return playArea;
 }
 
-const CardCollection& Player::getBank()
+CardCollection& Player::getBank()
 {
     return bank;
 }
@@ -65,8 +65,14 @@ const std::string& Player::getName()
     return name;
 }
 
-void Player::moveToBank()
+void Player::moveToBank(Game& game)
 {
+    //Checks for chest and key together in playArea
+    for(Card* card : playArea)
+    {
+        card->willAddToBank(game, *this);
+    }
+
     for (Card* card : playArea)
     {
         bank.push_back(card);
@@ -141,7 +147,7 @@ bool Player::PlayCard(Card* card, Game&)
     return false;
 }
 
-// Helper Functions for Card Abilities
+// ---Helper Functions for Card Abilities---
 
 
 std::vector<Card*> Player::getHighestCardsFromBank()

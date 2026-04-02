@@ -15,10 +15,6 @@ enum CardType { cannon, chest, key, anchor, sword, hook, oracle, map, mermaid, k
 class Card
 {
 
-protected:
-
-    int value;
-
 public:
     CardType cardType;
 
@@ -31,5 +27,9 @@ public:
     virtual std::string str() = 0;
     virtual void play(Game&, Player&) = 0;
     virtual void willAddToBank(Game&, Player&);
+
+protected:
+
+    int value;
 };
 

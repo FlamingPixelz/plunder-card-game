@@ -25,7 +25,7 @@ public:
 
     CardCollection& getDiscard();
     CardCollection& getDeck();
-    Player& getOpponent(Player&) const;
+    Player& getOpponent(const Player&) const;
     void setKrakenDraws(int);
 
     void startGame();

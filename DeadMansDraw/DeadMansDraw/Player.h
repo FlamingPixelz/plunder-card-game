@@ -21,12 +21,12 @@ public:
     ~Player();
 
     CardCollection& getPlayArea();
-    const CardCollection& getBank();
+    CardCollection& getBank();
     const std::string& getName();
 
     void displayPlayArea();
     bool isBust();
-    void moveToBank();
+    void moveToBank(Game& game);
     void displayBank();
     int calculateScore();
     bool PlayCard(Card*, Game&);

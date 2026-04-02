@@ -43,7 +43,7 @@ CardCollection& Game::getDeck()
     return deck;
 }
 
-Player& Game::getOpponent(Player& currentPlayer) const
+Player& Game::getOpponent(const Player& currentPlayer) const
 {
     if (&currentPlayer == players[0]) {
         return *players[1];
@@ -163,7 +163,7 @@ void Game::turn()
 
         if (response.front() == 'n') {
 
-            players[currentPlayer]->moveToBank();
+            players[currentPlayer]->moveToBank(*this);
             players[currentPlayer]->displayBank();
             endTurn();
             break;
