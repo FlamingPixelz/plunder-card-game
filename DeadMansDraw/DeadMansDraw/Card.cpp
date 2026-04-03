@@ -8,7 +8,7 @@ Card::~Card()
 {
 }
 
-CardType Card::type() const
+const CardType& Card::type() const
 {
     return cardType;
 }

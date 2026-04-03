@@ -22,13 +22,13 @@ public:
 
     CardCollection& getPlayArea();
     CardCollection& getBank();
-    const std::string& getName();
+    const std::string& getName() const;
 
     void displayPlayArea();
     bool isBust();
     void moveToBank(Game& game);
     void displayBank();
-    int calculateScore();
+    int calculateScore() const;
     bool PlayCard(Card*, Game&);
     std::vector<Card*> getHighestCardsFromBank();
     Card* removeFromBank(Card* card);

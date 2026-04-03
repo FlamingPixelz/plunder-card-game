@@ -48,7 +48,7 @@ void Chest::willAddToBank(Game& game, Player& player)
     //Builds string response and states drawn cards added to bank
 
     if(discard.empty()) {
-        printf("\tChest and Key activated, but the Discard pile is empty.\n");
+        printf("\tChest and Key activated, but the Discard pile is empty. Play continues.\n");
         return;
     }
 
@@ -60,5 +60,5 @@ void Chest::willAddToBank(Game& game, Player& player)
             printf(", ");
         }
     }
-    printf("to your bank.\n");
+    printf(" to your bank.\n");
 }

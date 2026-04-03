@@ -18,10 +18,10 @@ class Card
 public:
     CardType cardType;
 
-    Card(int value, CardType type);
+    Card(const int value, const CardType type);
     virtual ~Card();
     int getValue() const;
-    CardType type() const;
+    const CardType& type() const;
 
 
     virtual std::string str() = 0;

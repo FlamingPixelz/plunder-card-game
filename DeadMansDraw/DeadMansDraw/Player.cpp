@@ -60,7 +60,7 @@ CardCollection& Player::getBank()
     return bank;
 }
 
-const std::string& Player::getName()
+const std::string& Player::getName() const
 {
     return name;
 }
@@ -114,7 +114,7 @@ void Player::displayBank()
     printf("| Score: %d\n", calculateScore());
 }
 
-int Player::calculateScore()
+int Player::calculateScore() const
 {
     int score = { 0 };
     std::map<CardType, int> highestCard;    
