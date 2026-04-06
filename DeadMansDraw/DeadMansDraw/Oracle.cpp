@@ -1,7 +1,7 @@
 #include "Oracle.h"
 #include "Game.h"
 
-Oracle::Oracle(int value) : Card(value, oracle) {
+Oracle::Oracle(int value) : Card(value, CardType::oracle) {
 
 }
 

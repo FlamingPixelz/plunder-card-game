@@ -1,6 +1,6 @@
 #include "Mermaid.h"
 
-Mermaid::Mermaid(int value) : Card(value, mermaid)
+Mermaid::Mermaid(int value) : Card(value, CardType::mermaid)
 {
 }
 

@@ -1,6 +1,6 @@
 #include "Key.h"
 
-Key::Key(int value) : Card(value, key) {
+Key::Key(int value) : Card(value, CardType::key) {
 
 }
 

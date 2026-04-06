@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "Game.h"
 
-Map::Map(int value) : Card(value, map) {
+Map::Map(int value) : Card(value, CardType::map) {
 
 }
 
@@ -17,7 +17,7 @@ void Map::play(Game& game, Player& player)
 
     printf("\tDraw 3 cards from the discard and pick one to add to the play area:\n");
 
-    // Handles if there are less than 3 cards in the discard pile
+    //Handles if there are less than 3 cards in the discard pile
     int count = std::min(3, (int)discard.size());
 
     for (int i = 0; i < count && i < discard.size(); i++) {
@@ -28,7 +28,7 @@ void Map::play(Game& game, Player& player)
     std::string input;
     int choice = { 0 };
 
-    // Input validation
+    //Input validation
     while (true) {
 
         printf("\tWhich card do you pick? ");

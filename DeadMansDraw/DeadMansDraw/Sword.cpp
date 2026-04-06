@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Player.h"
 
-Sword::Sword(int value) : Card(value, sword) {
+Sword::Sword(int value) : Card(value, CardType::sword) {
 
 }
 
@@ -25,7 +25,7 @@ void Sword::play(Game& game, Player& player)
     std::string input;
     int choice = { 0 };
 
-    // Input validation
+    //Input validation
     while (true) {
 
         printf("\tWhich card do you pick? ");

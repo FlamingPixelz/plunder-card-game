@@ -2,13 +2,13 @@
 #include "Player.h"
 #include "Game.h"
 
-Chest::Chest(int value) : Card(value, chest) {
+Chest::Chest(int value) : Card(value, CardType::chest) {
 
 }
 
 void Chest::play(Game&, Player&)
 {
-    printf("\t\tNo immediate effect. If banked with a key, draw as many bonus cards from the Discard pile as you moved into your Bank.\n");
+    printf("\tNo immediate effect. If banked with a key, draw as many bonus cards from the Discard pile as you moved into your Bank.\n");
 }
 
 std::string Chest::str()
@@ -28,8 +28,12 @@ void Chest::willAddToBank(Game& game, Player& player)
 
     for (auto& card : playArea) {
 
-        if(card->type() == key) hasKey = true;
-        if (card->type() == chest) hasChest = true;
+        if (card->type() == CardType::key) {
+            hasKey = true;
+        }
+        if (card->type() == CardType::chest) {
+            hasChest = true;
+        }
     }
 
     if (!(hasChest && hasKey)) return;

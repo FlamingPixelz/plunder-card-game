@@ -16,7 +16,11 @@
 #include "Oracle.h"
 #include "Sword.h"
 
-#pragma once
+
+#ifndef GAME_H
+#define GAME_H
+
+
 class Game
 {
 public:
@@ -24,24 +28,22 @@ public:
     Game();
     ~Game();
 
+    //Getters and Setters
     CardCollection& getDiscard();
     const CardCollection& getDeck() const;
-    Player& getOpponent(const Player&) const;
-    void setKrakenDraws(int);
+    Player& getOpponent(const Player& currentPlayer) const;
+    void setKrakenDraws(int draws);
 
     void startGame();
-    bool drawToPlayArea(Player&, std::unique_ptr<Card>);
-    void moveToDiscard(CardCollection&);
-
-protected:
-
-    CardCollection deck, discard;
-    std::unique_ptr<Player> players[2];
+    bool drawToPlayArea(Player& player, std::unique_ptr<Card> card);
+    void moveToDiscard(CardCollection& playArea);
 
 private:
 
     int _turnNum, _round, _currentPlayer, _krakenDraws, _roundTracker;
     bool _turnOver;
+    CardCollection _deck, _discard;
+    std::unique_ptr<Player> _players[2];
 
     void executeCardTurn();
     void endTurn();
@@ -55,3 +57,4 @@ private:
     void turn();
 };
 
+#endif

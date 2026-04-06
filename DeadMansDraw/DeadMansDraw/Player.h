@@ -8,7 +8,8 @@
 
 #include "Card.h"
 
-#pragma once
+#ifndef PLAYER_H
+#define PLAYER_H
 
 class Game;
 
@@ -30,17 +31,15 @@ public:
     void moveToBank(Game& game);
     void displayBank() const;
     int calculateScore() const;
-    bool PlayCard(std::unique_ptr<Card>, Game&);
+    bool PlayCard(std::unique_ptr<Card> card, Game& game);
     std::vector<Card*> getHighestCardsFromBank();
     std::unique_ptr<Card> removeFromBank(Card* card);
 
-protected:
-
-    std::vector<std::unique_ptr<Card>> playArea;
-    std::vector<std::unique_ptr<Card>> bank;
-
 private:
 
+    std::vector<std::unique_ptr<Card>> _playArea;
+    std::vector<std::unique_ptr<Card>> _bank;
     std::string _name;
 };
 
+#endif

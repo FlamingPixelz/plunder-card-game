@@ -1,6 +1,6 @@
 #include "Card.h"
 
-Card::Card(int value, CardType type) : _value(value), _cardType(type)
+Card::Card(int value, CardType type) : _value(value), cardType(type)
 {
 }
 
@@ -10,7 +10,7 @@ Card::~Card()
 
 const CardType& Card::type() const
 {
-    return _cardType;
+    return cardType;
 }
 
 void Card::willAddToBank(Game&, Player&)

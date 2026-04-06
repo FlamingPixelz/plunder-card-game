@@ -1,12 +1,15 @@
 #include "Card.h"
 
-#pragma once
+#ifndef SWORD_H
+#define SWORD_H
+
 class Sword : public Card
 {
 public:
 
     Sword(int value);
-    void play(Game&, Player&) override;
+    void play(Game& game, Player& player) override;
     std::string str() override;
 
 };
+#endif

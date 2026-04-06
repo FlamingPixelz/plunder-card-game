@@ -1,7 +1,7 @@
 #include "Kraken.h"
 #include "Game.h"
 
-Kraken::Kraken(int value) : Card(value, kraken) {
+Kraken::Kraken(int value) : Card(value, CardType::kraken) {
 
 }
 

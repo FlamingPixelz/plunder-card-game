@@ -12,11 +12,11 @@ void Player::displayPlayArea() const
 {
     printf("%s's Play Area: \n", _name.c_str());
 
-    if (playArea.empty()) {
+    if (_playArea.empty()) {
         return;
     }
 
-    for (auto& card : playArea) {
+    for (auto& card : _playArea) {
         printf("\t%s\n", card->str().c_str());
     }
 }
@@ -25,8 +25,8 @@ bool Player::isBust() const
 {
     std::set<CardType> checkDuplicate;
 
-    // Creates set and checks for duplicate cards
-    for (auto& card : playArea) {
+    //Creates set and checks for duplicate cards
+    for (auto& card : _playArea) {
 
         CardType suit = card->type();
 
@@ -42,12 +42,12 @@ bool Player::isBust() const
 
 CardCollection& Player::getPlayArea()
 {
-    return playArea;
+    return _playArea;
 }
 
 CardCollection& Player::getBank()
 {
-    return bank;
+    return _bank;
 }
 
 const std::string& Player::getName() const
@@ -58,17 +58,17 @@ const std::string& Player::getName() const
 void Player::moveToBank(Game& game)
 {
     //Checks for chest and key together in playArea
-    for(auto& card : playArea)
+    for(auto& card : _playArea)
     {
         card->willAddToBank(game, *this);
     }
 
-    for (auto& card : playArea)
+    for (auto& card : _playArea)
     {
-        bank.push_back(std::move(card));
+        _bank.push_back(std::move(card));
     }
 
-    playArea.clear();
+    _playArea.clear();
 }
 
 void Player::displayBank() const
@@ -77,8 +77,8 @@ void Player::displayBank() const
 
     std::map<CardType, std::vector<Card*>> suit;
 
-    // Adding cards to suit map
-    for (auto& card : bank) {
+    //Adding cards to suit map
+    for (auto& card : _bank) {
         suit[card->type()].push_back(card.get());
     }
 
@@ -109,7 +109,7 @@ int Player::calculateScore() const
     int score = { 0 };
     std::map<CardType, int> highestCard;    
 
-    for (auto& card : bank) {
+    for (auto& card : _bank) {
     CardType suit = card->type();
 
       if (highestCard.find(suit) == highestCard.end() || card->getValue() > highestCard[suit]) {
@@ -125,10 +125,10 @@ int Player::calculateScore() const
     return score;
 }
 
-bool Player::PlayCard(std::unique_ptr<Card> card, Game&)
+bool Player::PlayCard(std::unique_ptr<Card> card, Game& game)
 {
 
-    playArea.push_back(std::move(card));
+    _playArea.push_back(std::move(card));
 
     if (isBust()) {
         return true;
@@ -137,14 +137,14 @@ bool Player::PlayCard(std::unique_ptr<Card> card, Game&)
     return false;
 }
 
-// ---Helper Functions for Card Abilities---
+//---Helper Functions for Card Abilities---
 
 
 std::vector<Card*> Player::getHighestCardsFromBank()
 {
     std::map<CardType, Card*> highestCard;
 
-    for (auto& card : bank) {
+    for (auto& card : _bank) {
         CardType suit = card->type();
 
         if (highestCard.find(suit) == highestCard.end() || card->getValue() > highestCard[suit]->getValue()) {
@@ -164,11 +164,11 @@ std::vector<Card*> Player::getHighestCardsFromBank()
 std::unique_ptr<Card> Player::removeFromBank(Card* card)
 {
 
-    for (auto i = bank.begin(); i != bank.end(); ++i) {
+    for (auto i = _bank.begin(); i != _bank.end(); ++i) {
         if (i->get() == card) {
 
             std::unique_ptr<Card> removedCard = std::move(*i);
-            bank.erase(i);
+            _bank.erase(i);
             return removedCard;
         }
     }

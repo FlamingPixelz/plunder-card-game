@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "Game.h"
 
-Hook::Hook(int value) : Card(value, hook)
+Hook::Hook(int value) : Card(value, CardType::hook)
 {
 }
 
@@ -44,7 +44,7 @@ void Hook::play(Game& game, Player& player)
 
     Card* selectedCard = playerBank[choice - 1];
 
-    // Move card from bank back into play area
+    //Move card from bank back into play area
     auto taken = player.removeFromBank(selectedCard);
     Card* rawPtr = { taken.get() };
 

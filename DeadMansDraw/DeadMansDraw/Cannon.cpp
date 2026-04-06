@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Player.h"
 
-Cannon::Cannon(int value) : Card(value, cannon) {
+Cannon::Cannon(int value) : Card(value, CardType::cannon) {
 
 }
 
