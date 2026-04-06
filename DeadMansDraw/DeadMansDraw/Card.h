@@ -16,7 +16,7 @@ class Card
 {
 
 public:
-    CardType cardType;
+    CardType _cardType;
 
     Card(const int value, const CardType type);
     virtual ~Card();
@@ -30,6 +30,6 @@ public:
 
 protected:
 
-    int value;
+    int _value;
 };
 

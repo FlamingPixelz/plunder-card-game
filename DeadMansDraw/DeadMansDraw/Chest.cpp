@@ -13,14 +13,14 @@ void Chest::play(Game&, Player&)
 
 std::string Chest::str()
 {
-    return "Chest(" + std::to_string(value) + ")";
+    return "Chest(" + std::to_string(_value) + ")";
 }
 
 //Implementation here and not in key
 void Chest::willAddToBank(Game& game, Player& player)
 {
-    bool hasKey = false;
-    bool hasChest = false;
+    bool hasKey = { false };
+    bool hasChest = { false };
 
     auto& playArea = player.getPlayArea();
     auto& discard = game.getDiscard();

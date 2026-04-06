@@ -3,14 +3,14 @@
 Player::Player()
 {
     const std::string nameArray[10] = {"Emma", "Billy", "Sasha", "Bob", "Jack", "Olivia", "Ed", "Diane", "Phil", "Jade"};
-    name = nameArray[rand() % 10];
+    _name = { nameArray[rand() % 10] };
 }
 
 Player::~Player() = default;
 
 void Player::displayPlayArea()
 {
-    printf("%s's Play Area: \n", name.c_str());
+    printf("%s's Play Area: \n", _name.c_str());
 
     if (playArea.empty()) {
         return;
@@ -52,7 +52,7 @@ CardCollection& Player::getBank()
 
 const std::string& Player::getName() const
 {
-    return name;
+    return _name;
 }
 
 void Player::moveToBank(Game& game)
@@ -73,7 +73,7 @@ void Player::moveToBank(Game& game)
 
 void Player::displayBank()
 {
-    printf("%s's Bank: \n", name.c_str());
+    printf("%s's Bank: \n", _name.c_str());
 
     std::map<CardType, std::vector<Card*>> suit;
 
@@ -166,6 +166,7 @@ std::unique_ptr<Card> Player::removeFromBank(Card* card)
 
     for (auto i = bank.begin(); i != bank.end(); ++i) {
         if (i->get() == card) {
+
             std::unique_ptr<Card> removedCard = std::move(*i);
             bank.erase(i);
             return removedCard;

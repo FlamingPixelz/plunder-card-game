@@ -54,7 +54,7 @@ void Map::play(Game& game, Player& player)
     auto selectedCard = std::move(discard[index]);
     discard.erase(discard.begin() + index);
 
-    Card* rawPtr = selectedCard.get();
+    Card* rawPtr = { selectedCard.get() };
 
     if (game.drawToPlayArea(player, std::move(selectedCard))) {
         return;
@@ -65,5 +65,5 @@ void Map::play(Game& game, Player& player)
 
 std::string Map::str()
 {
-    return "Map(" + std::to_string(value) + ")";
+    return "Map(" + std::to_string(_value) + ")";
 }

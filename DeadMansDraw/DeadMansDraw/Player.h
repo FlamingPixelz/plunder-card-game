@@ -1,11 +1,12 @@
 #include <iostream>
-#include "Card.h"
 #include <array>
 #include <vector>
 #include <map>
 #include <set>
 #include <algorithm>
 #include <time.h>
+
+#include "Card.h"
 
 #pragma once
 
@@ -40,6 +41,6 @@ protected:
 
 private:
 
-    std::string name;
+    std::string _name;
 };
 

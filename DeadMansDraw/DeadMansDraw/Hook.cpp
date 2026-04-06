@@ -8,7 +8,7 @@ Hook::Hook(int value) : Card(value, hook)
 
 void Hook::play(Game& game, Player& player)
 {
-    std::vector<Card*> playerBank = player.getHighestCardsFromBank();
+    std::vector<Card*> playerBank = { player.getHighestCardsFromBank() };
 
     if (playerBank.empty()) {
         printf("        No cards in your Bank. Play continues.\n");
@@ -46,7 +46,7 @@ void Hook::play(Game& game, Player& player)
 
     // Move card from bank back into play area
     auto taken = player.removeFromBank(selectedCard);
-    Card* rawPtr = taken.get();
+    Card* rawPtr = { taken.get() };
 
     if (game.drawToPlayArea(player, std::move(taken))) {
         return;
@@ -58,5 +58,5 @@ void Hook::play(Game& game, Player& player)
 
 std::string Hook::str()
 {
-    return "Hook(" + std::to_string(value) + ")";
+    return "Hook(" + std::to_string(_value) + ")";
 }

@@ -61,5 +61,5 @@ void Sword::play(Game& game, Player& player)
 
 std::string Sword::str()
 {
-    return "Sword(" + std::to_string(value) + ")";
+    return "Sword(" + std::to_string(_value) + ")";
 }

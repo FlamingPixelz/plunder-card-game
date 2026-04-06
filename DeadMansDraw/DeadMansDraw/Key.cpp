@@ -11,5 +11,5 @@ void Key::play(Game&, Player&)
 
 std::string Key::str()
 {
-    return "Key(" + std::to_string(value) + ")";
+    return "Key(" + std::to_string(_value) + ")";
 }

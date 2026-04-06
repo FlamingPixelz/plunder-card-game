@@ -25,7 +25,7 @@ public:
     ~Game();
 
     CardCollection& getDiscard();
-    CardCollection& getDeck();
+    const CardCollection& getDeck() const;
     Player& getOpponent(const Player&) const;
     void setKrakenDraws(int);
 
@@ -40,8 +40,8 @@ protected:
 
 private:
 
-    int turnNum, round, currentPlayer, krakenDraws, roundTracker;
-    bool turnOver;
+    int _turnNum, _round, _currentPlayer, _krakenDraws, _roundTracker;
+    bool _turnOver;
 
     void executeCardTurn();
     void endTurn();

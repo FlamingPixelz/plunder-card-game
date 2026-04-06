@@ -13,5 +13,5 @@ void Kraken::play(Game& game, Player&)
 
 std::string Kraken::str()
 {
-    return "Kraken(" + std::to_string(value) + ")";
+    return "Kraken(" + std::to_string(_value) + ")";
 }

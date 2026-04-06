@@ -45,7 +45,7 @@ void Cannon::play(Game& game, Player& player)
 
     }
 
-    Card* selectedCard = opponentHighestCards[choice - 1];
+    Card* selectedCard = { opponentHighestCards[choice - 1] };
 
     //Remove Card from Opponent's Bank and add to discard pile
     auto discarded = opponent.removeFromBank(selectedCard);
@@ -58,5 +58,5 @@ void Cannon::play(Game& game, Player& player)
 
 std::string Cannon::str()
 {
-    return "Cannon(" + std::to_string(value) + ")";
+    return "Cannon(" + std::to_string(_value) + ")";
 }

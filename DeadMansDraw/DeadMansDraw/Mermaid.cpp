@@ -11,5 +11,5 @@ void Mermaid::play(Game&, Player&)
 
 std::string Mermaid::str()
 {
-    return "Mermaid(" + std::to_string(value) + ")";
+    return "Mermaid(" + std::to_string(_value) + ")";
 }

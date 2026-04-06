@@ -2,12 +2,12 @@
 
 Game::Game()
 {
-    round = { 1 };
-    turnNum = { 1 };
-    currentPlayer = { 0 };
-    turnOver = { false };
-    roundTracker = { 2 };
-    krakenDraws = { 0 };
+    _round = { 1 };
+    _turnNum = { 1 };
+    _currentPlayer = { 0 };
+    _turnOver = { false };
+    _roundTracker = { 2 };
+    _krakenDraws = { 0 };
 
     initialiseDeck();
     shuffle();
@@ -24,7 +24,7 @@ CardCollection& Game::getDiscard()
     return discard;
 }
 
-CardCollection& Game::getDeck()
+const CardCollection& Game::getDeck() const
 {
     return deck;
 }
@@ -39,7 +39,7 @@ Player& Game::getOpponent(const Player& currentPlayer) const
 
 void Game::setKrakenDraws(int draws)
 {
-    krakenDraws = draws;
+    _krakenDraws = draws;
 }
 
 
@@ -112,12 +112,12 @@ void Game::createPlayer()
 
 void Game::turn()
 {
-    turnOver = false;
-    krakenDraws = 0;
+    _turnOver = { false };
+    _krakenDraws = { 0 };
     std::string response;
 
-    printf("%s's Turn.\n", players[currentPlayer]->getName().c_str()); // Need getters for name
-    players[currentPlayer]->displayBank();
+    printf("%s's Turn.\n", players[_currentPlayer]->getName().c_str()); // Need getters for name
+    players[_currentPlayer]->displayBank();
     executeCardTurn();
 
     while (true) {
@@ -127,30 +127,30 @@ void Game::turn()
         }
 
         //Specific draw rules for the kraken ability
-        if (krakenDraws > 0) {
+        if (_krakenDraws > 0) {
 
-            while (krakenDraws > 0) {
+            while (_krakenDraws > 0) {
 
                 executeCardTurn();
-                krakenDraws--;
+                _krakenDraws--;
 
                 if (isTurnOver()) {
                     return;
                 }
             }
 
-            krakenDraws = 0;
+            _krakenDraws = 0;
         }
 
-        players[currentPlayer]->displayPlayArea();
+        players[_currentPlayer]->displayPlayArea();
 
         printf("\nDraw Again? (y/n): ");
         std::getline(std::cin, response);
 
         if (!response.empty() && response.front() == 'n') {
 
-            players[currentPlayer]->moveToBank(*this);
-            players[currentPlayer]->displayBank();
+            players[_currentPlayer]->moveToBank(*this);
+            players[_currentPlayer]->displayBank();
             endTurn();
             break;
         }
@@ -163,12 +163,12 @@ void Game::turn()
 bool Game::drawToPlayArea(Player& player, std::unique_ptr<Card> card)
 {
     printf("%s draws a %s\n", player.getName().c_str(), card->str().c_str());
-    bool isBust = player.PlayCard(std::move(card), *this);
+    bool isBust = { player.PlayCard(std::move(card), *this) };
 
     if (isBust) {
 
-        printf("BUST! %s loses all cards in play area.\n", players[currentPlayer]->getName().c_str());
-        CardCollection& playArea = players[currentPlayer]->getPlayArea();
+        printf("BUST! %s loses all cards in play area.\n", players[_currentPlayer]->getName().c_str());
+        CardCollection& playArea = players[_currentPlayer]->getPlayArea();
         moveToDiscard(playArea);
         endTurn();
         return true;
@@ -188,8 +188,8 @@ std::unique_ptr<Card> Game::draw()
 
 void Game::gameTracker()
 {
-    printf("--- Round %d, Turn %d ---\n", round, turnNum);
-    turnNum++;
+    printf("--- Round %d, Turn %d ---\n", _round, _turnNum);
+    _turnNum++;
 
 }
 
@@ -205,22 +205,22 @@ void Game::moveToDiscard(CardCollection& playArea)
 
 void Game::endTurn()
 {
-    turnOver = true;
-    roundTracker--;
+    _turnOver = { true };
+    _roundTracker--;
 
     // After both players have had a turn, move to the next round
-    if (roundTracker <= 0) {
+    if (_roundTracker <= 0) {
 
-        round++;
-        roundTracker = 2;
+        _round++;
+        _roundTracker = { 2 };
     }
 
-    currentPlayer = (currentPlayer + 1) % 2;
+    _currentPlayer = { (_currentPlayer + 1) % 2 };
 }
 
 bool Game::isTurnOver() const
 {
-    return turnOver;
+    return _turnOver;
 }
 
 void Game::executeCardTurn()
@@ -229,11 +229,11 @@ void Game::executeCardTurn()
     Card* rawPtr = card.get();
 
     // Check if card can be added to play area without busting, if so add and end turn, otherwise play card as normal
-    if (drawToPlayArea(*players[currentPlayer], std::move(card))) {
+    if (drawToPlayArea(*players[_currentPlayer], std::move(card))) {
         return;
     }
 
-    rawPtr->play(*this, *players[currentPlayer]);
+    rawPtr->play(*this, *players[_currentPlayer]);
 
     // Checks if card ability causes a bust
     if (isTurnOver()) {

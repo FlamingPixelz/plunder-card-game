@@ -19,5 +19,5 @@ void Oracle::play(Game& game, Player&)
 
 std::string Oracle::str()
 {
-    return "Oracle(" + std::to_string(value) + ")";
+    return "Oracle(" + std::to_string(_value) + ")";
 }
