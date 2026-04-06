@@ -13,13 +13,13 @@ void Sword::play(Game& game, Player& player)
     std::vector<Card*> opponentHighestCards = opponent.getHighestCardsFromBank();
 
     if (opponentHighestCards.empty()) {
-        printf("        No cards in other player's Bank. Play continues.\n");
+        printf("\tNo cards in other player's Bank. Play continues.\n");
         return;
     }
 
-    printf("        Steal the top card of any suit from the other player's Bank into you Play Area:\n");
+    printf("\tSteal the top card of any suit from the other player's Bank into you Play Area:\n");
     for (int i = 0; i < opponentHighestCards.size(); i++) {
-        printf("       (%d) %s\n", i + 1, opponentHighestCards[i]->str().c_str());
+        printf("\t(%d) %s\n", i + 1, opponentHighestCards[i]->str().c_str());
     }
 
     std::string input;
@@ -28,7 +28,7 @@ void Sword::play(Game& game, Player& player)
     // Input validation
     while (true) {
 
-        printf("        Which card do you pick? ");
+        printf("\tWhich card do you pick? ");
         std::getline(std::cin, input);
 
         try {

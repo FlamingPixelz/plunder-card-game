@@ -17,7 +17,7 @@ void Player::displayPlayArea() const
     }
 
     for (auto& card : playArea) {
-        printf("        %s\n", card->str().c_str());
+        printf("\t%s\n", card->str().c_str());
     }
 }
 

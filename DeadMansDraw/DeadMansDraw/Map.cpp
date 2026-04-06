@@ -11,18 +11,18 @@ void Map::play(Game& game, Player& player)
     CardCollection& discard = game.getDiscard();
 
     if (discard.empty()) {
-        printf("        No cards in the Discard pile. Play continues.\n");
+        printf("\tNo cards in the Discard pile. Play continues.\n");
         return;
     }
 
-    printf("        Draw 3 cards from the discard and pick one to add to the play area:\n");
+    printf("\tDraw 3 cards from the discard and pick one to add to the play area:\n");
 
     // Handles if there are less than 3 cards in the discard pile
     int count = std::min(3, (int)discard.size());
 
     for (int i = 0; i < count && i < discard.size(); i++) {
         auto& card = discard[discard.size() - 1 - i];
-        printf("       (%d) %s\n", i + 1, card->str().c_str());
+        printf("\t(%d) %s\n", i + 1, card->str().c_str());
     }
 
     std::string input;
@@ -31,7 +31,7 @@ void Map::play(Game& game, Player& player)
     // Input validation
     while (true) {
 
-        printf("        Which card do you pick? ");
+        printf("\tWhich card do you pick? ");
         std::getline(std::cin, input);
 
         try {

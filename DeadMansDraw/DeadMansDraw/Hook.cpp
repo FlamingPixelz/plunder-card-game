@@ -11,13 +11,13 @@ void Hook::play(Game& game, Player& player)
     std::vector<Card*> playerBank = { player.getHighestCardsFromBank() };
 
     if (playerBank.empty()) {
-        printf("        No cards in your Bank. Play continues.\n");
+        printf("\tNo cards in your Bank. Play continues.\n");
         return; 
     }
 
-    printf("        Select a highest-value card from any of the suits in your Bank:\n");
+    printf("\tSelect a highest-value card from any of the suits in your Bank:\n");
     for (int i = 0; i < playerBank.size(); i++) {
-        printf("       (%d) %s\n", i + 1, playerBank[i]->str().c_str());
+        printf("\t(%d) %s\n", i + 1, playerBank[i]->str().c_str());
     }
 
     std::string input;
@@ -26,7 +26,7 @@ void Hook::play(Game& game, Player& player)
     //Input Validation
     while (true) {
 
-        printf("        Which card do you pick? ");
+        printf("\tWhich card do you pick? ");
         std::getline(std::cin, input);
 
         try {

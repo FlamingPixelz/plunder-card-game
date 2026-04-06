@@ -13,13 +13,13 @@ void Cannon::play(Game& game, Player& player)
     std::vector<Card*> opponentHighestCards = opponent.getHighestCardsFromBank();
 
     if (opponentHighestCards.empty()) {
-        printf("        No cards in other player's Bank. Play continues.\n");
+        printf("\tNo cards in other player's Bank. Play continues.\n");
         return;
     }
 
-    printf("        Shoot the top card of any suit from the other player's Bank into the Discard Pile:\n");
+    printf("\tShoot the top card of any suit from the other player's Bank into the Discard Pile:\n");
     for (int i = 0; i < opponentHighestCards.size(); i++) {
-        printf("       (%d) %s\n", i + 1, opponentHighestCards[i]->str().c_str());
+        printf("\t(%d) %s\n", i + 1, opponentHighestCards[i]->str().c_str());
     }
 
     std::string input;
@@ -28,7 +28,7 @@ void Cannon::play(Game& game, Player& player)
     //Input Validation
     while (true) {
 
-        printf("        Which card do you pick? ");
+        printf("\tWhich card do you pick? ");
         std::getline(std::cin, input);
 
         try {
@@ -50,7 +50,7 @@ void Cannon::play(Game& game, Player& player)
     //Remove Card from Opponent's Bank and add to discard pile
     auto discarded = opponent.removeFromBank(selectedCard);
 
-    printf("        You shoot the %s out of the other Player's bank\n", discarded->str().c_str());
+    printf("\tYou shoot the %s out of the other Player's bank\n", discarded->str().c_str());
 
     game.getDiscard().push_back(std::move(discarded));
 

@@ -1,13 +1,15 @@
 #include "Game.h"
 
-Game::Game()
+Game::Game() :
+
+    _round(1),
+    _turnNum(1),
+    _currentPlayer(0),
+    _turnOver(false),
+    _roundTracker(2),
+    _krakenDraws(0)
+
 {
-    _round = { 1 };
-    _turnNum = { 1 };
-    _currentPlayer = { 0 };
-    _turnOver = { false };
-    _roundTracker = { 2 };
-    _krakenDraws = { 0 };
 
     initialiseDeck();
     shuffle();
@@ -46,7 +48,7 @@ void Game::setKrakenDraws(const int draws)
 
 void Game::startGame()
 {
-    std::cout << GAME_TITLE << std::endl;
+    printf("%s\n", GAME_TITLE);
     printf("Starting Dead Man's Draw++!\n");
 
     // Keeps track of the turns - 20 turns per game

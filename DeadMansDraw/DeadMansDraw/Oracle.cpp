@@ -10,11 +10,11 @@ void Oracle::play(Game& game, Player&)
     const CardCollection& deck = game.getDeck();
 
     if (deck.empty()) {
-        printf("        Deck is empty. The Oracle sees nothing.\n");
+        printf("\tDeck is empty. The Oracle sees nothing.\n");
         return;
     }
 
-    printf("        The Oracle sees a %s\n", deck.back()->str().c_str());
+    printf("\tThe Oracle sees a %s\n", deck.back()->str().c_str());
 }
 
 std::string Oracle::str()
