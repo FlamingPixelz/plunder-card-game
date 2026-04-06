@@ -25,10 +25,10 @@ public:
     CardCollection& getBank();
     const std::string& getName() const;
 
-    void displayPlayArea();
-    bool isBust();
+    void displayPlayArea() const;
+    bool isBust() const;
     void moveToBank(Game& game);
-    void displayBank();
+    void displayBank() const;
     int calculateScore() const;
     bool PlayCard(std::unique_ptr<Card>, Game&);
     std::vector<Card*> getHighestCardsFromBank();

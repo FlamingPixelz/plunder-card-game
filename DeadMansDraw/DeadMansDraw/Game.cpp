@@ -37,13 +37,12 @@ Player& Game::getOpponent(const Player& currentPlayer) const
     return *players[0];
 }
 
-void Game::setKrakenDraws(int draws)
+void Game::setKrakenDraws(const int draws)
 {
     _krakenDraws = draws;
 }
 
-
-
+// -----Game Functionality ------
 
 void Game::startGame()
 {
@@ -52,6 +51,11 @@ void Game::startGame()
 
     // Keeps track of the turns - 20 turns per game
     for(int i = 0; i < 20; ++i) {
+
+        // Ends game if deck is empty
+        if(deck.empty()) {
+            break;
+        }
 
         gameTracker();
         turn();
@@ -109,7 +113,7 @@ void Game::createPlayer()
     players[1] = std::make_unique<Player>();
 }
 
-
+// Main game loop for a player's turn
 void Game::turn()
 {
     _turnOver = { false };
@@ -160,6 +164,7 @@ void Game::turn()
     }
 }
 
+// Draws card to play area and checks if bust
 bool Game::drawToPlayArea(Player& player, std::unique_ptr<Card> card)
 {
     printf("%s draws a %s\n", player.getName().c_str(), card->str().c_str());
@@ -177,6 +182,7 @@ bool Game::drawToPlayArea(Player& player, std::unique_ptr<Card> card)
     return false;
 }
 
+// Draws a card from the deck and returns it as a unique_ptr
 std::unique_ptr<Card> Game::draw()
 
 { 
@@ -185,7 +191,6 @@ std::unique_ptr<Card> Game::draw()
     return card;
 }
 
-
 void Game::gameTracker()
 {
     printf("--- Round %d, Turn %d ---\n", _round, _turnNum);
@@ -193,6 +198,7 @@ void Game::gameTracker()
 
 }
 
+// Moves cards from play area to discard pile
 void Game::moveToDiscard(CardCollection& playArea)
 {
     for (auto& card : playArea) {
@@ -223,6 +229,7 @@ bool Game::isTurnOver() const
     return _turnOver;
 }
 
+// Executes the logic for a player's turn, including drawing a card and playing it
 void Game::executeCardTurn()
 {
     auto card = draw();

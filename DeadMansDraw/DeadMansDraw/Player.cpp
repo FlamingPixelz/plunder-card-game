@@ -3,12 +3,12 @@
 Player::Player()
 {
     const std::string nameArray[10] = {"Emma", "Billy", "Sasha", "Bob", "Jack", "Olivia", "Ed", "Diane", "Phil", "Jade"};
-    _name = { nameArray[rand() % 10] };
+    _name = nameArray[rand() % 10];
 }
 
 Player::~Player() = default;
 
-void Player::displayPlayArea()
+void Player::displayPlayArea() const
 {
     printf("%s's Play Area: \n", _name.c_str());
 
@@ -21,7 +21,7 @@ void Player::displayPlayArea()
     }
 }
 
-bool Player::isBust()
+bool Player::isBust() const
 {
     std::set<CardType> checkDuplicate;
 
@@ -71,7 +71,7 @@ void Player::moveToBank(Game& game)
     playArea.clear();
 }
 
-void Player::displayBank()
+void Player::displayBank() const
 {
     printf("%s's Bank: \n", _name.c_str());
 
