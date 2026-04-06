@@ -1,23 +1,19 @@
 #include "Game.h"
 
 Game::Game() :
-
     _round(1),
     _turnNum(1),
     _currentPlayer(0),
     _turnOver(false),
     _roundTracker(2),
     _krakenDraws(0)
-
 {
-
     initialiseDeck();
     shuffle();
     createPlayer();
 }
 
 Game::~Game() = default;
-
 
 //-----Getters and setters------
 
@@ -58,7 +54,6 @@ void Game::startGame()
         if(_deck.empty()) {
             break;
         }
-
         gameTracker();
         turn();
     }
@@ -83,6 +78,10 @@ void Game::endGame()
     else {
         printf("It's a tie!\n");
     }
+
+    // Prevent the exe application to quit immediately before you can see the result
+    printf("Press any key to exit...");
+    std::cin.get();
 }
 
 void Game::initialiseDeck()
@@ -90,7 +89,6 @@ void Game::initialiseDeck()
     int cardValue[6] = { 2, 3, 4, 5, 6, 7 };
 
     for (int i : cardValue) {
-
         _deck.push_back(std::make_unique<Cannon>(i));
         _deck.push_back(std::make_unique<Chest>(i));
         _deck.push_back(std::make_unique<Hook>(i));
@@ -101,7 +99,6 @@ void Game::initialiseDeck()
         _deck.push_back(std::make_unique<Oracle>(i));
         _deck.push_back(std::make_unique<Sword>(i));
     }
-
 }
 
 void Game::shuffle()
@@ -134,7 +131,6 @@ void Game::turn()
 
         //Specific draw rules for the kraken ability
         if (_krakenDraws > 0) {
-
             while (_krakenDraws > 0) {
 
                 executeCardTurn();
