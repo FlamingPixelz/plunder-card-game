@@ -36,17 +36,19 @@ void Chest::willAddToBank(Game& game, Player& player)
         }
     }
 
-    if (!(hasChest && hasKey)) return;
+    if (!(hasChest && hasKey)) {
+        return;
+    }
 
     auto cardsToDraw = playArea.size();
     std::vector<Card*> bonusCards;
 
     for (int i = 0; i < cardsToDraw && !discard.empty(); i++)
     {
-        auto& card = discard.back();
+        auto card = std::move(discard.back());
         discard.pop_back();
-        bank.push_back(std::move(card));
         bonusCards.push_back(card.get());
+        bank.push_back(std::move(card));
     }
 
     //Builds string response and states drawn cards added to bank

@@ -69,17 +69,23 @@ void Game::endGame()
 
     if (_players[0]->calculateScore() > _players[1]->calculateScore()) {
         printf("%s Wins!\n", _players[0]->getName().c_str());
+
+        // Prevent the exe application to quit immediately before you can see the result
+        printf("Press any key to exit...");
+        std::cin.get();
         return;
     }
     if(_players[1]->calculateScore() > _players[0]->calculateScore()) {
         printf("%s Wins!\n", _players[1]->getName().c_str());
+
+        printf("Press any key to exit...");
+        std::cin.get();
         return;
     }
     else {
         printf("It's a tie!\n");
     }
 
-    // Prevent the exe application to quit immediately before you can see the result
     printf("Press any key to exit...");
     std::cin.get();
 }
