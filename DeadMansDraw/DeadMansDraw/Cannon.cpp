@@ -48,11 +48,11 @@ void Cannon::play(Game& game, Player& player)
     Card* selectedCard = opponentHighestCards[choice - 1];
 
     //Remove Card from Opponent's Bank and add to discard pile
-    Card* discarded = opponent.removeFromBank(selectedCard);
+    auto discarded = opponent.removeFromBank(selectedCard);
 
     printf("        You shoot the %s out of the other Player's bank\n", discarded->str().c_str());
 
-    game.getDiscard().push_back(discarded);
+    game.getDiscard().push_back(std::move(discarded));
 
 }
 

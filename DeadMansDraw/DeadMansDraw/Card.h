@@ -9,7 +9,7 @@ class Player;
 class Game;
 class Card;
 
-typedef std::vector<Card*> CardCollection;
+typedef std::vector<std::unique_ptr<Card>> CardCollection;
 enum CardType { cannon, chest, key, anchor, sword, hook, oracle, map, mermaid, kraken };
 
 class Card

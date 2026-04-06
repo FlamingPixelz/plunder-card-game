@@ -22,11 +22,11 @@ void Chest::willAddToBank(Game& game, Player& player)
     bool hasKey = false;
     bool hasChest = false;
 
-    CardCollection& playArea = player.getPlayArea();
-    CardCollection& discard = game.getDiscard();
-    CardCollection& bank = player.getBank();
+    auto& playArea = player.getPlayArea();
+    auto& discard = game.getDiscard();
+    auto& bank = player.getBank();
 
-    for (Card* card : playArea) {
+    for (auto& card : playArea) {
 
         if(card->type() == key) hasKey = true;
         if (card->type() == chest) hasChest = true;
@@ -39,10 +39,10 @@ void Chest::willAddToBank(Game& game, Player& player)
 
     for (int i = 0; i < cardsToDraw && !discard.empty(); i++)
     {
-        Card* card = discard.back();
+        auto& card = discard.back();
         discard.pop_back();
-        bank.push_back(card);
-        bonusCards.push_back(card);
+        bank.push_back(std::move(card));
+        bonusCards.push_back(card.get());
     }
 
     //Builds string response and states drawn cards added to bank

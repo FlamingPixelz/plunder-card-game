@@ -45,13 +45,14 @@ void Hook::play(Game& game, Player& player)
     Card* selectedCard = playerBank[choice - 1];
 
     // Move card from bank back into play area
-    Card* taken = player.removeFromBank(selectedCard);
+    auto taken = player.removeFromBank(selectedCard);
+    Card* rawPtr = taken.get();
 
-    if (game.drawToPlayArea(player, taken)) {
+    if (game.drawToPlayArea(player, std::move(taken))) {
         return;
     }
 
-    taken->play(game, player);
+    rawPtr->play(game, player);
 
 }
 

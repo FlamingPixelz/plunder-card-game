@@ -21,7 +21,7 @@ void Map::play(Game& game, Player& player)
     int count = std::min(3, (int)discard.size());
 
     for (int i = 0; i < count && i < discard.size(); i++) {
-        Card* card = discard[discard.size() - 1 - i];
+        auto& card = discard[discard.size() - 1 - i];
         printf("       (%d) %s\n", i + 1, card->str().c_str());
     }
 
@@ -51,14 +51,16 @@ void Map::play(Game& game, Player& player)
     //Delete chosen card from discard and add to play area
     auto index = discard.size() - choice;
 
-    Card* selectedCard = { discard[index] };
+    auto selectedCard = std::move(discard[index]);
     discard.erase(discard.begin() + index);
 
-    if (game.drawToPlayArea(player, selectedCard)) {
+    Card* rawPtr = selectedCard.get();
+
+    if (game.drawToPlayArea(player, std::move(selectedCard))) {
         return;
     }
 
-    selectedCard->play(game, player);
+    rawPtr->play(game, player);
 }
 
 std::string Map::str()

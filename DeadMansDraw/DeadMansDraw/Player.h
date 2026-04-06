@@ -29,13 +29,14 @@ public:
     void moveToBank(Game& game);
     void displayBank();
     int calculateScore() const;
-    bool PlayCard(Card*, Game&);
+    bool PlayCard(std::unique_ptr<Card>, Game&);
     std::vector<Card*> getHighestCardsFromBank();
-    Card* removeFromBank(Card* card);
+    std::unique_ptr<Card> removeFromBank(Card* card);
 
 protected:
 
-    CardCollection playArea, bank;
+    std::vector<std::unique_ptr<Card>> playArea;
+    std::vector<std::unique_ptr<Card>> bank;
 
 private:
 

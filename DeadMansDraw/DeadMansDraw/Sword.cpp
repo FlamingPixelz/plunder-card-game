@@ -48,13 +48,14 @@ void Sword::play(Game& game, Player& player)
     Card* selectedCard = opponentHighestCards[choice - 1];
 
     //Remove Card from Opponent's Bank
-    Card* taken = opponent.removeFromBank(selectedCard);
+    auto taken = opponent.removeFromBank(selectedCard);
+    Card* rawPtr = taken.get();
 
-    if (game.drawToPlayArea(player, taken)) {
+    if (game.drawToPlayArea(player, std::move(taken))) {
         return;
     }
 
-    taken->play(game, player);
+    rawPtr->play(game, player);
 
 }
 

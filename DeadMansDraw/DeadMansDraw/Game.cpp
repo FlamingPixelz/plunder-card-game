@@ -14,21 +14,7 @@ Game::Game()
     createPlayer();
 }
 
-Game::~Game()
-{
-    delete players[0];
-    delete players[1];
-
-    for (Card* card : deck) {
-        //printf("Deleting card %s from deck\n", card->str().c_str()); // Test
-        delete card;
-    }
-    for (Card* card : discard) {
-        //printf("Deleting card %s from discard\n", card->str().c_str()); // Test
-        delete card;
-    }
-}
-
+Game::~Game() = default;
 
 
 // -----Getters and setters------
@@ -45,7 +31,7 @@ CardCollection& Game::getDeck()
 
 Player& Game::getOpponent(const Player& currentPlayer) const
 {
-    if (&currentPlayer == players[0]) {
+    if (&currentPlayer == players[0].get()) {
         return *players[1];
     }
     return *players[0];
@@ -99,15 +85,15 @@ void Game::initialiseDeck()
 
     for (int i : cardValue) {
 
-        deck.push_back(new Cannon(i));
-        deck.push_back(new Chest(i));
-        deck.push_back(new Hook(i));
-        deck.push_back(new Key(i));
-        deck.push_back(new Kraken(i));
-        deck.push_back(new Map(i));
-        deck.push_back(new Mermaid(i + 2));
-        deck.push_back(new Oracle(i));
-        deck.push_back(new Sword(i));
+        deck.push_back(std::make_unique<Cannon>(i));
+        deck.push_back(std::make_unique<Chest>(i));
+        deck.push_back(std::make_unique<Hook>(i));
+        deck.push_back(std::make_unique<Key>(i));
+        deck.push_back(std::make_unique<Kraken>(i));
+        deck.push_back(std::make_unique<Map>(i));
+        deck.push_back(std::make_unique<Mermaid>(i + 2));
+        deck.push_back(std::make_unique<Oracle>(i));
+        deck.push_back(std::make_unique<Sword>(i));
     }
 
 }
@@ -119,8 +105,8 @@ void Game::shuffle()
 
 void Game::createPlayer()
 {
-    players[0] = new Player();
-    players[1] = new Player();
+    players[0] = std::make_unique<Player>();
+    players[1] = std::make_unique<Player>();
 }
 
 
@@ -161,23 +147,23 @@ void Game::turn()
         printf("\nDraw Again? (y/n): ");
         std::getline(std::cin, response);
 
-        if (response.front() == 'n') {
+        if (!response.empty() && response.front() == 'n') {
 
             players[currentPlayer]->moveToBank(*this);
             players[currentPlayer]->displayBank();
             endTurn();
             break;
         }
-        if (response.front() == 'y') {
+        if (!response.empty() && response.front() == 'y') {
             break;
         }
     }
 }
 
-bool Game::drawToPlayArea(Player& player, Card* card)
+bool Game::drawToPlayArea(Player& player, std::unique_ptr<Card> card)
 {
     printf("%s draws a %s\n", player.getName().c_str(), card->str().c_str());
-    bool isBust = player.PlayCard(card, *this);
+    bool isBust = player.PlayCard(std::move(card), *this);
 
     if (isBust) {
 
@@ -191,10 +177,10 @@ bool Game::drawToPlayArea(Player& player, Card* card)
     return false;
 }
 
-Card* Game::draw()
+std::unique_ptr<Card> Game::draw()
 
 { 
-    Card* card = deck.back();
+    auto card = std::move(deck.back());
     deck.pop_back();
     return card;
 }
@@ -209,8 +195,8 @@ void Game::gameTracker()
 
 void Game::moveToDiscard(CardCollection& playArea)
 {
-    for (Card* card : playArea) {
-        discard.push_back(card);
+    for (auto& card : playArea) {
+        discard.push_back(std::move(card));
         //printf("Discarding card %s\n", card->str().c_str()); // Test that discard is working
     }
 
@@ -239,14 +225,15 @@ bool Game::isTurnOver() const
 
 void Game::executeCardTurn()
 {
-    Card* card = draw();
+    auto card = draw();
+    Card* rawPtr = card.get();
 
     // Check if card can be added to play area without busting, if so add and end turn, otherwise play card as normal
-    if (drawToPlayArea(*players[currentPlayer], card)) {
+    if (drawToPlayArea(*players[currentPlayer], std::move(card))) {
         return;
     }
 
-    card->play(*this, *players[currentPlayer]);
+    rawPtr->play(*this, *players[currentPlayer]);
 
     // Checks if card ability causes a bust
     if (isTurnOver()) {

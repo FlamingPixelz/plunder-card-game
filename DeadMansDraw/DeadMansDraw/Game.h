@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <memory>
 
 #include "Player.h"
 #include "Card.h"
@@ -29,13 +30,13 @@ public:
     void setKrakenDraws(int);
 
     void startGame();
-    bool drawToPlayArea(Player&, Card*);
+    bool drawToPlayArea(Player&, std::unique_ptr<Card>);
     void moveToDiscard(CardCollection&);
 
 protected:
 
     CardCollection deck, discard;
-    Player* players[2];
+    std::unique_ptr<Player> players[2];
 
 private:
 
@@ -45,7 +46,7 @@ private:
     void executeCardTurn();
     void endTurn();
     bool isTurnOver() const;
-    Card* draw();
+    std::unique_ptr<Card> draw();
     void gameTracker();
     void endGame();
     void initialiseDeck();
