@@ -3,7 +3,10 @@
 Player::Player()
 {
     const std::string nameArray[10] = {"Emma", "Billy", "Sasha", "Bob", "Jack", "Olivia", "Ed", "Diane", "Phil", "Jade"};
-    _name = nameArray[rand() % 10];
+     static std::mt19937 rng(std::random_device{}());
+     std::uniform_int_distribution<int> dist(0, 9);
+
+     _name = nameArray[dist(rng)];
 }
 
 Player::~Player() = default;

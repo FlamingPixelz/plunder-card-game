@@ -5,6 +5,7 @@
 #include <set>
 #include <algorithm>
 #include <time.h>
+#include <random>
 
 #include "Card.h"
 

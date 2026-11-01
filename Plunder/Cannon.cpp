@@ -18,8 +18,8 @@ void Cannon::play(Game& game, Player& player)
     }
 
     printf("\tShoot the top card of any suit from the other player's Bank into the Discard Pile:\n");
-    for (int i = 0; i < opponentHighestCards.size(); i++) {
-        printf("\t(%d) %s\n", i + 1, opponentHighestCards[i]->str().c_str());
+    for (size_t i = 0; i < opponentHighestCards.size(); i++) {
+        printf("\t(%ld) %s\n", i + 1, opponentHighestCards[i]->str().c_str());
     }
 
     std::string input;
@@ -37,7 +37,7 @@ void Cannon::play(Game& game, Player& player)
         catch (...) {
         }
 
-        if (choice < 1 || choice > opponentHighestCards.size()) {
+        if (choice < 1 || choice > static_cast<int>(opponentHighestCards.size())) {
         }
         else {
             break;

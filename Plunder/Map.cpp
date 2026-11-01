@@ -20,7 +20,7 @@ void Map::play(Game& game, Player& player)
     //Handles if there are less than 3 cards in the discard pile
     int count = std::min(3, (int)discard.size());
 
-    for (int i = 0; i < count && i < discard.size(); i++) {
+    for (int i = 0; i < count && i < static_cast<int>(discard.size()); i++) {
         auto& card = discard[discard.size() - 1 - i];
         printf("\t(%d) %s\n", i + 1, card->str().c_str());
     }

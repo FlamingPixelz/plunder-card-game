@@ -1,6 +1,6 @@
 #include "Card.h"
 
-Card::Card(int value, CardType type) : _value(value), cardType(type)
+Card::Card(int value, CardType type) : cardType(type), _value(value)
 {
 }
 

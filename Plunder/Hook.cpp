@@ -16,8 +16,8 @@ void Hook::play(Game& game, Player& player)
     }
 
     printf("\tSelect a highest-value card from any of the suits in your Bank:\n");
-    for (int i = 0; i < playerBank.size(); i++) {
-        printf("\t(%d) %s\n", i + 1, playerBank[i]->str().c_str());
+    for (size_t i = 0; i < playerBank.size(); i++) {
+        printf("\t(%ld) %s\n", i + 1, playerBank[i]->str().c_str());
     }
 
     std::string input;
@@ -35,7 +35,7 @@ void Hook::play(Game& game, Player& player)
         catch (...) {
         }
 
-        if (choice < 1 || choice > playerBank.size()) {
+        if (choice < 1 || choice > static_cast<int>(playerBank.size())) {
         }
         else {
             break;

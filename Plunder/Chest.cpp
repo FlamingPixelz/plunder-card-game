@@ -43,7 +43,7 @@ void Chest::willAddToBank(Game& game, Player& player)
     auto cardsToDraw = playArea.size();
     std::vector<Card*> bonusCards;
 
-    for (int i = 0; i < cardsToDraw && !discard.empty(); i++)
+    for (size_t i = 0; i < cardsToDraw && !discard.empty(); i++)
     {
         auto card = std::move(discard.back());
         discard.pop_back();
@@ -59,7 +59,7 @@ void Chest::willAddToBank(Game& game, Player& player)
     }
 
     printf("\tChest and Key activated. Added ");
-    for (int i = 0; i < bonusCards.size(); i++)
+    for (size_t i = 0; i < bonusCards.size(); i++)
     {
         printf("%s", bonusCards[i]->str().c_str());
         if (i < bonusCards.size() - 1) {
