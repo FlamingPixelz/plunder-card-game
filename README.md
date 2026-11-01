@@ -1,12 +1,26 @@
 # Plunder
 
-<img width="1401" height="819" alt="Screenshot_20261029_121640" src="https://github.com/user-attachments/assets/4a15d5c8-62e6-4921-9541-ff21ed4e545c" />
+<img width="1484" height="1033" alt="Screenshot_20261101_172919" src="https://github.com/user-attachments/assets/c33fc756-6a92-48ef-bc8e-82e05f9bfc0a" />
 
-This is a console-based card game that is built with C++ using OOP principles and smart pointers. Proper error handling and prevention of memory leaks has been implemented.
+In this console-based card game, 2 players take turns drawing cards that activate special abilities that can affect the amount of points you or your opponent receives, but busting when you draw a duplicate card, encouraging risk vs. reward gameplay. The player with the most points at the end of the game wins!
 
-In this game, 2 players take turns drawing cards that activate special abilities that can affect the amount of points you or your opponent receives, but busting when you draw a duplicate card, encouraging risk vs. reward gameplay. The player can stop drawing at any time. The player with the most points at the end of the game wins.
+## Installation
+
+### Requirements
+You must have a c++17 compiler installed on your system (g++ 7+, clang 5+, or MSVC 2017+)
+
+### Build & Run on Linux/MacOS
+```bash
+git clone https://github.com/FlamingPixelz/plunder-card-game.git
+cd plunder-card-game
+make run
+```
+
+### Build and Run on Windows
+Open `Plunder/Plunder.slnx` in Visual Studio and press **F5**.
 
 ## Development
+This project was built in C++ using OOP principles and smart pointers. Unique pointers were used for the creation of card objects and players so that no manual delete is needed, preventing memory leaks. Error handling via input validation was also implemented so that the user cannot break the game if they make a mistake.
 
 ### Class Diagram
 The game was first designed using a UML class diagram before being implemented:
